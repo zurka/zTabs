@@ -5,3 +5,8 @@ requires jQuery v1.5 or later
 Copyright 2011, Steve Roberson (steve@zurka.com)
 Soon to be licensed under the MIT license.  Perhaps GPL2 as well.
 Details to follow.
+
+This package is a test-bed that includes CSS, examples and documentation.
+
+It may not work locally but serving index.html from any web server should give you a working example.
+library/javascript/jquery.ztabs.js is where the magic happens. YMMV
