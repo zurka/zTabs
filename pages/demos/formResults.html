@@ -1,0 +1,32 @@
+<style type="text/css" media="screen">
+
+.formBox {
+	background:#ffffdc;
+	border:1px solid brown;
+	width:400px;
+	margin: auto;
+	padding: 12px
+}	
+.zResults {
+	border: 1px dotted gray;
+	min-height: 400px;
+	color: gray;
+	margin-top: 24px;
+}	
+
+</style>
+<div class='contentWithMargin'>
+	<p>Since there is a div set up on this page with the class zResults and the form has the class zReplace, the results of the form submission via AJAX will be placed in the div.</p>
+	<div class="formBox">
+		<form id='formToReplace' class='zReplace' action="pages/demos/results.html" method="get" accept-charset="utf-8">
+			<table border="0" cellspacing="0" cellpadding="5">
+				<tr><th>Search Terms:</th><td><input type ='text' name='search' size='32'></td></tr>
+				<tr><td colspan='2' align='center'><input type="submit" value="Search"></td></tr>
+			</table>
+		</form>
+	</div>
+	
+	<div id="resultsDiv" class='zResults'>
+		This is the div for form results
+	</div>
+</div>

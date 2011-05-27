@@ -1,0 +1,156 @@
+<div class='contentWithMargin'>
+
+	<h2>Introduction</h2>
+	<p>zTabs is a jQuery plugin which turns standard HTML unordered lists into a complete tabbed interface.</p>
+	<p>Learn about setting up zTabs, including required HTML and CSS, common configuration options, and out-of-the-box features.</p>
+	<table class='functionList' border="0" cellspacing="0" cellpadding="6">
+		<tr>
+			<td><a href='pages/docs/setup/initialization.html' class='zTab'>zTabs Initialization</a></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/setup/htmlandcss.html' class='zTab'>zTabs HTML and CSS</a></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/features/openTabs.html' class='zTab'>Open New Tabs</a></td>
+		</tr>
+		<!--tr>
+			<td><a href='pages/docs/features/replaceContent.html' class='zTab'>Replace content dynamically</a></td>
+		</tr-->
+	</table>
+		
+
+	<h2>Configuration Options</h2>
+	<p>zTabs offers several configuration options, for tailoring it to your specific needs.</p>
+
+	<h2>Methods</h2>
+	<table class='functionList' border="0" cellspacing="0" cellpadding="6">
+		<tr>
+			<th class='first'>Method</th>
+			<th>Initial Selector</th>
+			<th>Arguments</th>
+			<th>Returns</th>
+			<th>Notes</th>
+		</tr>
+		<tr>
+			<td>.zTabs(&lt;options&gt;)</td>
+			<td>jQuery unordered list</td>
+			<td>options object</td>
+			<td>jQuery</td>
+			<td>Builds and initializes zTabs</td>
+		</tr>
+		<tr>
+			<td><a data-tabid='zTabsProperty' href='pages/docs/zTabsProperty.html' class='zTab'>.zTabs('property', &lt;name&gt;)</a></td>
+			<td>jQuery tab</td>
+			<td>name of property</td>
+			<td>string or boolean or function</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a data-tabid='zTabsProperty' href='pages/docs/zTabsProperty.html' class='zTab'>.zTabs('property', &lt;name&gt;, &lt;value&gt;)</a></td>
+			<td>jQuery tab</td>
+			<td>name of property, new value for property<br /> (string|boolean|function)</td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a data-tabid='zTabsProperty' href='pages/docs/zTabsProperty.html' class='zTab'>.zTabs('property', &lt;properties&gt;)</a></td>
+			<td>jQuery tab</td>
+			<td>options object</td>
+			<td>jQuery</td>
+			<td>See full description for list of options</td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsCurrent.html' class='zTab' data-tabid='zTabsCurrent'>.zTabs('current')</a></td>
+			<td>jQuery tabset</td>
+			<td></td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsIsCurrent.html' class='zTab'>.zTabs('isCurrent')</a></td>
+			<td>jQuery tab</td>
+			<td></td>
+			<td>boolean</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsContent.html' class='zTab'>.zTabs('content')</a></td>
+			<td>jQuery tabset, jQuery tab</td>
+			<td></td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsCC.html' class='zTab'>.zTabs('cc'[, &lt;filter&gt;])</a></td>
+			<td>jQuery tabset</td>
+			<td>filter</td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsParentTab.html' class='zTab'>.zTabs('parentTab')</a></td>
+			<td></td>
+			<td></td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsParentContent.html' class='zTab'>.zTabs('parentContent'[, &lt;filter&gt;])</a></td>
+			<td></td>
+			<td></td>
+			<td>jQuery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsRefresh.html' class='zTab'>.zTabs('refresh')</a></td>
+			<td>jQuery tab</td>
+			<td></td>
+			<td>Deferred Obj.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsShow.html' class='zTab'>.zTabs('show')</a></td>
+			<td>jQuery tab</td>
+			<td></td>
+			<td>Deferred Obj.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsClose.html' class='zTab'>.zTabs('close')</a></td>
+			<td>jQuery tab</td>
+			<td>options object</td>
+			<td>Deferred Obj.</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>.zTabs('add', &lt;options&gt;)</td>
+			<td>jQuery tabset, jQuery tab</td>
+			<td>options object</td>
+			<td>Deferred Obj.</td>
+			<td>Returns a deferred object.</td>
+		</tr>
+		<tr>
+			<td><a data-tabid='zTabsAdd' href='pages/docs/zTabsAdd.html' class='zTab'>.zTabs('addAndShow', &lt;options&gt;)</a></td>
+			<td></td>
+			<td>options object</td>
+			<td>Deferred Obj.</td>
+			<td>Deprecated.</td>
+		</tr>
+		<tr>
+			<td><a href='pages/docs/zTabsShowPath.html' class='zTab'>.zTabs('showPath', &lt;path&gt;)</a></td>
+			<td>jQuery tabset</td>
+			<td>options object</td>
+			<td>Deferred Obj.</td>
+			<td>Shows the specified tab. Available in zTabs 1.1 and higher.</td>
+		</tr>
+		<tr>
+			<td>.zTabs('fromAnchor'[, &lt;options&gt;])</td>
+			<td></td>
+			<td>options object</td>
+			<td></td>
+			<td>A utility.  You may just want to give your anchors the class 'zTab' to do the same thing.</td>
+		</tr>
+		<tr>
+		</tr>
+	</table>
+</div>

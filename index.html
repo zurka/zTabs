@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Application Template</title>
+<link href='library/styles/zTabs.css' rel='stylesheet' type='text/css'/>
+<!--[if IE 8]><link rel="stylesheet" href="library/styles/zTabsIE8.css" type="text/css" media="screen"><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="library/styles/zTabsIE7.css" type="text/css" media="screen"><![endif]-->
+<!--[if lte IE 6]> <link rel='stylesheet' rev='stylesheet' href='library/styles/zTabsIE6.css' type='text/css' charset="utf-8" media='screen' /> <![endif]-->
+
+<script type="text/javascript" src="library/javascript/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="library/javascript/jquery.ztabs.js"></script>
+<script>
+$(document).ready(function() {	
+	$('#mainTabs').zTabs({
+		contentdivid: 'mainContent',
+		subrowsdivid: 'subRows'
+	});
+});
+
+$(document).ajaxStart(function(){
+	$('#ajaxLoading').fadeIn();
+}).ajaxStop(function(){
+	$('#ajaxLoading').fadeOut();
+});
+
+</script>
+</head>
+
+<body class='fullheight'>
+<div id='body-decoration'></div>
+<div id='body-decoration2'></div>
+<div id='pageWrapper'>
+	<div id="header">
+		<div id="logo" ></div>
+		<div id="titleBlock">
+			<div class="title">Web Application Template</div>
+			<div class="subTitle">The Sub-Title Goes Here</div>
+		</div>
+		<div id="userBlock">
+			<div class='username'>Joe User</div>
+			<div class='loginout'><a href='' onclick='return false'>Logout</a></div>
+		</div>
+	</div>
+	<div id='tabNavigation'>
+		<ul id='mainTabs'>
+			<li id='tabOne'><a href="tabOne.html">Tab One</a></li>
+			<li id='tabTwo'><a href="tabTwo.html">Tab Two</a></li>
+			<li id='subTabs'><a href="pages/subtabs.html">Sub Tabs</a></li>
+			<li id='demos'><a href="pages/demos/">Demos</a></li>
+			<li id='docs'><a href="pages/docs/">Docs</a></li>
+			<li id='topSingleton' data-singleton='form' data-closeable='true'><a href='pages/demos/forms.html'>Single</a></li>
+		</ul>
+		<div id='subRows'></div>
+	</div>
+	<div id='bodyWrapper'>
+		<div id='mainContent'>
+		</div>
+	</div>
+</div>
+<div id="ajaxLoading" style='display:none'></div>	
+</body>
+</html>

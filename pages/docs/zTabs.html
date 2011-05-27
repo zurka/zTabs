@@ -1,0 +1,55 @@
+<div class='contentWithMargin'>
+<div class='func'>
+	<span class='funcName'>.zTabs(&lt;options&gt;)</span>
+	<p>Builds a tabbed interface when pointed at an unordered list.</p>
+	<p>.zTabs() can be passed a number of options to configure the tabbed interface. Each option applies to either the collection of tabs itself ("tabset"), or to individual tabs. Options can later be changed using .zTabs('property').</p>
+	<p>This returns a jQuery object, so it is chainable.</p>
+
+	<div class='subSection'>Tabset Options:</div>
+
+	<!--div class='option'><span class='optionName'>editable</span> - Can the user edit the tab by doubleclicking on it. (true, false)  The default is false.</div-->
+
+	<div class='option'><span class='optionName'>contentdivid</span> - Sets the div where content will be displayed for tabs.  If this option is set, and there is any local content on the page, it should be placed in here as well.</div>
+	<div class='option'><span class='optionName'>subrowsdivid</span> - Sets the div where rows of sub-tabs beyond the first row will be added.  The first row must be set up as part of the original HTML. By default, sub-tabs are placed in the DOM after the set of tabs that contains their parent.</div>
+	
+	<div class='option'><span class='optionName'>imagebaseurl</span> - Sets the location where zTabs will look for a close button graphic.  This defaults to 'library/images/'.</div>
+	<div class='option'><span class='optionName'>closebutton</span> - The HTML for the close button.  The default value is '&lt;img width="11" height="11" border="0" src="library/images/close_tab_button_white.gif"&gt;'.</div>
+	<div class='option'><span class='optionName'>fromanchor</span> - Sets which anchor links will automatically open in new tabs when clicked. The default value is 'a.zTab', so any anchor with class 'zTab' will cause a new tab to be created when it is clicked.</div>
+	<div class='option'><span class='optionName'>replace</span> - Similar to 'fromanchor', this sets which anchor links will replace the current content with the results of an AJAX call to their href.  The default value is 'a.zReplace', so any anchor with class 'zReplace' will cause the currently displayed content to be replaced when clicked.</div>
+	<div class='option'><span class='optionName'>formreplace</span> - By default if you give a form the class 'zReplace', the form will be submitted via AJAX and the results will replace the current tab content.  You can use the 'formreplace' property to set the class that's used for this feature to something else.  The default value is 'form.zReplace'.</div>
+	<div class='option'><span class='optionName'>formresults</span> - If you're using 'formreplace', you can set it up so the results from that AJAX call replace only a specific element by setting the element. The default is 'form.zReplace' but you can use this property to set it to anything you like.</div>
+
+	<div class='subSection'>Tab Options:</div>
+	<div class='option'><span class='optionName'>contenturl</span> - Determines the source for a tab's content.</div>	
+	<div class='option'><span class='optionName'>label</span> - Sets the label for a tab.</div>	
+	<div class='option'><span class='optionName'>maxlabelsize</span> - This is the maximum number of characters that a label can have.  Labels that are bigger than the maximum will be truncated to that size minus three, and "..." will be added.  The full, un-truncated label will be visible via a tool-tip.  This can be set globally when zTabs is initiated or it can be set specifically on an li.  It can also be set for an anchor tag that has the class ztab or is processed by zTabsFromAnchor.</div>
+	
+	
+	<div class='option'><span class='optionName'>cache</span> - Determines if a tab should go to the server and load its 'contenturl' every time the tab is clicked ('false') or just the first time ('true').  The default value is 'true'.</div>
+	<div class='option'><span class='optionName'>closeable</span> - Determines if a tab is closeable. Closeable tabs typically feature a close button, which is configured using the 'imagebaseurl' and 'closebutton' options. Possible values for this option are 'true' and 'false'. The default value is 'false'.</div>
+
+	<div class='option'><span class='optionName'>onclose</span> - A function to be called if the user presses the close button on a tab.  If this function returns false then the close is cancelled.</div>
+	<div class='option'><span class='optionName'>oncreate</span> - A function that gets called only the first time a tab is shown.</div>
+	<div class='option'><span class='optionName'>onsleep</span> - A function that gets called every time a different tab is pressed and this is the active tab.  If the onsleep function returns false then the switch to the new tab is cancelled.</div>
+	<div class='option'><span class='optionName'>onwake</span> - A function to call every time the tab is shown.</div>
+	<div class='option'><span class='optionName'>singleton</span> - </div>	
+
+
+	<div class='subSection'>Examples:</div>
+	<pre class='code'>
+$("#tabList").zTabs();
+
+&lt;ul id=&quot;tabList&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;#localContent&quot;&gt;Local Content&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;pages/serverContent.html&quot;&gt;Server Content&lt;/a&gt;&lt;/li&gt;
+	&lt;li id=&#x27;tabThree&#x27;&gt;&lt;a href=&quot;pages/serverContent2.html&quot;&gt;Server Content 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+	
+	<p>As of version .9.9 JSONP can be used to grab a tab from a different domain.  The content must be a JSON formatted object with the property html set to the content for the tab.  That content can include a script tag which will be executed as it would if the content were coming from the same domain.<p>
+	<p>The href of the anchor tag should include callback=? in the URL past the query ? like so<p>
+	<pre>
+		http://otherdomain.nrl.navy.mil/foo.php?bar=1&callback=?
+	</pre>
+</div>
+</div>

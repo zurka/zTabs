@@ -1,0 +1,52 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('property', &lt;name&gt;)</span>
+		<p>Returns the value of the named property for the given tab.</p>
+		<p>The initial selector should be a jQuery object representing a single tab. If more than one tab is in the jQuery set, then only the first tab in the set is used.</p>
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Returns the label of the tab</span>
+$("#tabOne").zTabs('property', 'label');	
+
+<span class='comment'>// Executes the onclose function for the zTabsProperty tab.</span>
+$('#zTabsProperty').zTabs('property', 'onclose')();</code></pre>
+	</div>
+
+	<div class='func'>
+		<span class='funcName'>.zTabs('property', &lt;name&gt;, &lt;value&gt;)</span>
+		<p>Sets the named property of the given tab, defined by key, to the value.</p>
+		<p>If more than one tab is given by the initial selector, the named property will be set for each of the tabs.</p>
+		<p>Returns a jQuery object representing the tabs whose properties have been changed.
+
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Changes the label of the current tab</span>
+$('#mainTabs').zTabs('current').zTabs('property', 'label', 'New Label');
+
+<span class='comment'>// Adds an onclose function to the zTabsProperty tab which alerts "hello world!"</span>
+$('#zTabsProperty').zTabs('property', 'onclose', function(){ alert("hello world!"); });</code></pre>
+	</div>
+
+	<div class='func'>	
+		<span class='funcName'>.zTabs('property', &lt;properties&gt;)</span>
+		<p>Sets the values of the named properties passed in as an object (map/associative array).</p>
+		<p>If more than one tab is given by the initial selector, the named property will be set for each of the tabs.</p>
+		<p>Returns a jQuery object representing the tabs whose properties have been changed.
+
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Changes the label of the tab</span>
+$("#tabOne").zTabs('property', {label:'Tab'});	
+
+<span class='comment'>// Sets the tab to closeable so the close "x" is displayed</span>
+$("#tabOne").zTabs('property', {closeable:true});		
+
+<span class='comment'>// Sets the tab to closeable, but also adds an onclose function which prevents the tab from closing</span>
+<span class='comment'>// The label is updated to reflect the changed properties</span>
+$("#tabOne").zTabsProperty({
+	closeable: true,
+	onclose: function() {
+		alert("No, you may not close this tab");
+		return false;
+	},
+	label: "Can't Close This"
+});</code></pre>
+	</div>
+</div>

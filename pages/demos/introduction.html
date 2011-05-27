@@ -1,0 +1,11 @@
+<br /><br />
+
+<ol class='demoList'>
+<li><b>Add a tab:</b> <a href='blank.html' data-tabid='added' data-label='added tab' class='zTab'>&lt;a href='blank.html' data-tabid='added' data-label='added tab' class='zTab' &gt;foobar&lt;/a&gt;</a></li>
+<li><b>Close that tab:</b> <a href='#' onClick="$('#added').zTabs('close');return false;">$('#added').zTabs('close')</a></li>
+<li><b>Refresh Tab:</b> <form><input type='text' /></form> <a href='pages/demos/introduction.html' class='zReplace'>&lt;a href='pages/demos/introduction.html' class='zReplace'&gt;&lt;/a&gt;</a></li>
+</ol>
+	
+<script>
+$('#demoTabs').zTabs('add', {tabid:'added', label:'New Tab', contenturl:'blank.html'})
+</script>

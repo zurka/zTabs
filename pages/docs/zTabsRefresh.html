@@ -1,0 +1,21 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('refresh')</span>
+		<p>Refreshes the contents of a given tab or tabs.</p>
+		<p>This may be used to explicitly reload a tab's content. By default, a tab's content is loaded only the first time the tab is visited, and cached for subsequent visits.</p>
+		<p>A tab may be set to load its content upon every visit by setting its cache property to 'false'.</p>
+		<p>Returns a jQuery deferred object. A deferred object represents the completion status of a task, and can have any number of callbacks attached to it, which fire according to when and how the task resolves. Deferred objects which have already resolved can still accept callbacks, which will be fired immediately.</p>
+		<p>Refreshing a tab can depend on a number of factors, including any tab content which must be loaded. By returning a deferred object, .zTabs('refresh') allows you to base behavior off of the refreshing of a tab in a flexible way.</p>
+		
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Refresh the contents of the current tab</span>
+$("#mainTabs").zTabs('current').zTabs('refresh'); 
+
+<span class='comment'>// Refresh the contents of the specified tabs</span>
+$("#tabOne, #functionListTab").zTabs('refresh');
+
+<span class='comment'>// Turn off caching on the current tab, causing it to reload with every visit</span>
+$("#mainTabs").zTabs('current').zTabs('property', 'cache', false); 
+		</code></pre>
+	</div>
+</div>

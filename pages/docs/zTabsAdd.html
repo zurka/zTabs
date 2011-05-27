@@ -1,0 +1,35 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+			<span class='funcName'>.zTabs('add', &lt;options&gt;)</span>
+			<p>Add a tab to a set of tabs.  This can be called on a unordered list (&lt;ul&gt;) or an list item (&lt;li&gt;).  If called on an &lt;li&gt; it will show the &lt;li&gt; and add the new tab to the sub-tabs of that &lt;li&gt;.  The sub-tabs of that &lt;li&gt; need not exist when zTabsAdd is called as long as they will exist after the &lt;li&gt; has been shown.
+			<div class='subSection'>Options:</div>
+
+			<div class='option'><span class='optionName'>id</span> - The id that should be set in the list item.  Example: &lt;li id=&#x27;foobar&#x27;&gt;</div>
+			<div class='option'><span class='optionName'>contenturl</span> - The URL or anchor for the content associated with this tab.  Building on the example above: &lt;li id=&#x27;foobar&#x27;&gt;&lt;a href=&#x27;/foo/bar.html&#x27;&gt;</div>
+			<div class='option'><span class='optionName'>label</span> - The label associated with the tab.  Building on the example above: &lt;li id=&#x27;foobar&#x27;&gt;&lt;a href=&#x27;/foo/bar.html&#x27;&gt;Foobar&lt;/a&gt;&lt;/li&gt;</div>
+			<div class='option'><span class='optionName'>closeable</span> - Can the user close the tab.  (true, false)  The default is false.</div>
+			<div class='option'><span class='optionName'>onwake</span> - A function to call every time the tab is shown.</div>
+			<div class='option'><span class='optionName'>onsleep</span> - A function that gets called every time a different tab is pressed and this is a selected tab.  If the onSleep function returns false then the switch to the new tab is cancelled.</div>
+			<div class='option'><span class='optionName'>oncreate</span> - A function that gets called only the first time a tab is shown.</div>
+			<div class='option'><span class='optionName'>onclose</span> - A function to be called if the user presses the close button.  If this function returns false then the close is cancelled.</div>
+			<div class='option'><span class='optionName'>cache</span> - Determines if the tab should go to the server and load contentURL every time the tab is clicked (false) or just the first time (true).  The default is true.</div>
+			<div class='option'><span class='optionName'>show</span> - Determines whether or not to show the tab once it has been added.  The default is true.</div>
+
+		<div class='subSection'>Examples:</div>
+		<pre>
+		// add a new tab as a sub-tab of tabThree
+		$('#tabThree').zTabs('add',{
+			id:'tabFour',
+			contenturl:'/pages/lorem/ipsum.html',
+			label:'Lorem Ipsum',
+			closeable: true
+		});
+		</pre>
+	</div>
+
+	<div class='func'>
+		<span class='funcName'>.zTabs('addAndShow', &lt;options&gt;)</span>
+		<p>Deprecated. The behavior this previously enabled is now the default behavior when adding a new tab.</p> 
+		<p>Adds a tab to an existing set of tabs, and causes the new tab to show immediately.</p>
+	</div>
+</div>

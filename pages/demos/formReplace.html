@@ -1,0 +1,22 @@
+<style type="text/css" media="screen">
+
+.formBox {
+	background:#ffffdc;
+	border:1px solid brown;
+	width:400px;
+	margin: auto;
+	padding: 12px
+}	
+	
+</style>
+<div class='contentWithMargin'>
+	<p>Since this form has a class of zReplace, the contents of the tab will be replace with what the server returns after the form's submission via AJAX.</p>
+	<div class="formBox">
+		<form id='formToReplace' class='zReplace' action="pages/demos/formReplace.html" method="get" accept-charset="utf-8">
+			<table border="0" cellspacing="0" cellpadding="5">
+				<tr><th>Search Terms:</th><td><input type ='text' name='search' size='32'></td></tr>
+				<tr><td colspan='2' align='center'><input type="submit" value="Search"></td></tr>
+			</table>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('parentTab')</span>
+		<p>Returns a jQuery object representing the first tab in the DOM whose content contains a match for the initial selector.</p>
+
+		<p>The initial selector can be anything which can appear in the content area, however .zTabs('parentTab') will only match elements which currently exist in the DOM.</p>
+
+		<p>This function is similar to .zTabs('current'), in that you can use it to target a tab without knowing any of its identifying details. This behavior is valuable if tabs have been generated dynamically, and when a content element is a more meaningful identifier than whatever tab contains it.</p>
+
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// Shows the tab containing the form with id 'formToReplace'</span>
+$('form#formToReplace').zTabs('parentTab').zTabs('show');
+		</code></pre>
+	</div>
+</div>
+
+<script>
+	
+</script>

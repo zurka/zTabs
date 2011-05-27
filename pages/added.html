@@ -1,0 +1,9 @@
+Added
+<div class='foo'>bar</div>
+
+<script type="text/javascript" charset="utf-8">
+	console.log("--> "+$('#Tab_Added').zTabs('isCurrent'));
+	$.when($('#Tab_Added').zTabs('close')).fail(function() {
+		console.log("Closed");
+	});
+</script>

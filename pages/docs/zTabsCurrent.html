@@ -1,0 +1,21 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('current')</span>
+		<p>Returns a jQuery object representing the current tab's list item.</p>
+		<p>The initial selector can be the id of any existing tab or ul in the tabset. This allows you to target the current tab specifically, without having to know any of its identifying details. This behavior is valuable when working with dynamically created tabs.</p>
+
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// Changes the label of the current tab</span>
+$('#mainTabs').zTabs('current').zTabs('property', {label: 'New Label'});	
+
+<span class='comment'>// Returns the label of the current tab</span>
+<span class='comment'>// The initial selector can be any valid tab or ul within the tabset for the current tab to be returned</span>
+$('#demos').zTabs('current').zTabs('property', 'label');	
+</code></pre>
+		<p><strong>Note:</strong> Because ".zTabs('current').zTabs('content')" is a common pattern, ".zTabs('cc')" is provided as a shortcut.</p>
+	</div>
+</div>
+
+<script>
+	// alert($('#mainTabs').zTabsCurrent().zTabsContent().html());
+</script>

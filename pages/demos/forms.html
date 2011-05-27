@@ -1,0 +1,28 @@
+<div class='contentWithMargin'>
+	<p>This form is here to show that a user can edit it, change to another tab, then come back to their content without a trip to the server.</p>
+	<form id='testForm' action="pages/demos/forms.html" method="get" accept-charset="utf-8">
+		<table border="0" cellspacing="0" cellpadding="5">
+			<tr><th>Name:</th><td><input type ='text' name='firstname' size='32'></td></tr>
+			<tr><th>Quest:</th><td><textarea rows='8' cols='40'></textarea></td></tr>
+			<tr><th>Favorite Colour:</th><td>
+				<select name='color'>
+					<option></option>
+					<option>Red</option>
+					<option>Green</option>
+					<option>Blue</option>
+					<option>Yellow</option>
+				</select>
+			</td></tr>
+		</table>
+
+		
+
+		<p><input type="submit" value="Continue &rarr;"></p>
+	</form>
+</div>
+<script>
+	$('#testForm').submit(function() {
+		alert("Go on. Off you go.");
+		return false;
+	});
+</script>

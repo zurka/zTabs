@@ -1,0 +1,15 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('show')</span>
+		<p>Leaves the current tab and displays the given tab, if the given tab exists in the DOM.  
+		<p>Any appropriate functions bound to the current tab (such as onsleep) will execute before the given tab can be shown. Anything that prevents a clean exit from the current tab will also cancel .zTabs('show').
+		<p>Any onwake functions bound to the given tab will fire when the tab is shown.</p>
+		<p>Returns a jQuery deferred object. A deferred object represents the completion status of a task, and can have any number of callbacks attached to it, which fire according to when and how the task resolves. Deferred objects which have already resolved can still accept callbacks, which will be fired immediately.</p>
+		<p>Showing a tab can depend on a number of factors, including functions such as onsleep and onwake, and any tab content which must be loaded. By returning a deferred object, .zTabs('show') allows you to base behavior off of the showing of a tab in a flexible way.</p>
+
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Show the tab with id 'tabOne'</span>
+$('#tabOne').zTabs('show');		
+		</code></pre>
+	</div>
+</div>

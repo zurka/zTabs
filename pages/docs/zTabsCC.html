@@ -1,0 +1,23 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('cc'[, &lt;filter&gt;])</span>
+		<p>Returns a jQuery object representing the content of the current tab -- the data that is displayed when the user selects the tab.</p>
+		<p>The initial selector can be the id of any existing tab or ul in the tabset. This allows you to target the content of the current tab specifically, without having to know any of its exact details. This behavior is valuable when working with dynamically created tabs.</p>
+		<p>This takes an optional filter argument that narrows the returned object to represent only things in the content which match the filter. The optional filter uses jQuery-style selector syntax, such as "#mainTabs" or ".classname".</p>
+		<p><strong>Note:</strong> This is a convenience method, provided as a shortcut for the common ".zTabs('current').zTabs('content')" pattern.</p>
+		<!--p>Returns the a jQuery object for the current content area.  This takes and optional filter argument that limits the objects returned to things in content part of the DOM that match that filter.  (jQuery style filter like "#mainTabs" or ".classname"), etc.</p>-->
+
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// Changes all the text in pre tags in the current content area to blue.</span>
+$('#mainTabs').zTabs('cc', 'pre').css({color:'blue'});	
+<!--
+// This is a short-cut to doing $('#mainTabs').zTabs('current').zTabs('content')
+// You may find that you use this a great deal because one often wants to work on elements that
+// are in the content area of the tab you're in while having the confidence that no
+// other content areas will be harmed.--></code></pre>
+	</div>
+</div>
+
+<!--script>
+$().zTabs('cc', 'pre').css({color:'blue'});
+</script-->

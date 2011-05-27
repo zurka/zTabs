@@ -1,0 +1,32 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('close')</span>
+		<p>Removes the given tab or tabs, and any content. Any children of the given tab or tabs will also be removed.</p>
+		<p>If the current tab is closed, the previous tab will be loaded if any is available. If no previous tab is available, the first tab from the current row will display.
+		<p>The onclose function of any tabs which are to be removed, including any child tabs, will run before this close is executed.  If any onclose returns false, the close is cancelled.</p>
+		<p>Returns a jQuery deferred object. A deferred object represents the completion status of a task, and can have any number of callbacks attached to it, which fire according to when and how the task resolves. Deferred objects which have already resolved can still accept callbacks, which will be fired immediately.</p>
+		<p>Closing a tab can depend on a number of factors, including any onclose callbacks which have been set on the tab. A tab may take a long time to close, or may never close. By returning a deferred object, .zTabs('close') allows you to base behavior off of the closing of a tab in a flexible way. 
+		<div class='subSection'>Examples:</div>	
+		<pre><code><span class='comment'>// Removes the tab with the id matching 'subTabs' along with any children the tab has</span>
+$('#subTabs').zTabs('close'); 
+
+<span class='comment'>// Removes the red and blue tabs</span>
+$('#red, #blue').zTabs('close');
+
+<span class='comment'>// Uses the .zTabs('close') deferred object
+// Sets an onclose function on the #blue tab, which randomly returns true or false
+// Attempts to close the #blue tab, and alerts an appropriate message, depending on the outcome</span>
+$('#blue').zTabs('property', 'onclose', function(){ 
+	var coinflip = (Math.floor( Math.random() * 2 ) == 1);
+	return coinflip; 
+}); 
+$('#blue').zTabs('close')
+.done(function() {
+	alert('tab closed!');
+})
+.fail(function() {
+	alert('tab did not close!');
+});
+		</code></pre>
+	</div>
+</div>

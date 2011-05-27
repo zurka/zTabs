@@ -1,0 +1,30 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>Initialization</span>
+		<p>zTabs has to be initialized when the document is loaded, in order to use its tabbed interface. zTabs requires one unordered list with at least one tab, which will be used to build the first row of tabs.</p>
+		<p>zTabs has several configuration options which can be set at initialization to customize its interface. Options are specified by passing a standard javascript object into the .zTabs() method.</p>
+		<div class='subSection'>contentdivid and subrowsdivid:</div>
+		<p>One typical zTabs setup looks like this:</p>
+		<div class='subSection'>Example:</div>
+		<pre><code>$(document).ready(function() {
+
+	<span class='comment'>// mainTabs is id of the initial unordered list</span>
+	$('#mainTabs').zTabs({
+		contentdivid: 'mainContent',
+		subrowsdivid: 'subRows'
+	});
+});</code></pre>
+		<p>Two common options have been specified above, contentdivid and subrowsdivid. By default, zTabs already manages tab content and additional rows of tabs. But for various reasons, such as styling zTabs using CSS, it can be useful to explicitly declare where content and subrows should go. When these options are set, zTabs will look for the divs specified by the values when placing content and rows.</p>
+		<div class='subSection'>localstorage:</div>
+		<p>zTabs uses HTML5 Local Storage by default to track tabs that have been opened. This allows zTabs to restore a previous browser session when returning to your site, or refreshing the page. Tab content is not saved via Local Storage. Internet Explorer versions prior to 8 do not support Local Storage.</p>
+		<p>In some cases, it may be useful to disable Local Storage for your zTabs installation. As an example, for sites which support individual user accounts, Local Storage might be disabled for users who have not yet logged in.</p>
+		<p>To disable Local Storage, set the localstorage option to 'ignore'.</p>
+		<div class='subSection'>Example:</div>
+		<pre><code>$(document).ready(function() {
+	$('#mainTabs').zTabs({
+		...
+		localstorage: 'ignore'
+	});
+});</code></pre>
+	</div>
+</div>

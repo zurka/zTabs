@@ -1,0 +1,14 @@
+<a id='test' href='#'>Width Test</a>
+<script type="text/javascript" charset="utf-8">
+	$('#test').click(function() {
+
+		var combinedWidth = 0;
+		$('#mainTabs li').each(function() {
+			var liWidth = $(this).outerWidth(true);
+			console.log("liWidth: "+liWidth);
+			combinedWidth = combinedWidth + liWidth;
+		});
+		var ulWidth = $('#mainTabs').outerWidth(true);
+		alert("combinedWidth: "+combinedWidth+"  ulWidth: "+ulWidth);
+	});
+</script>

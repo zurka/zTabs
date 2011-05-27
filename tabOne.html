@@ -1,0 +1,68 @@
+<h1>zTabs</h1>
+
+<p>Welcome to zTabs.  This jQuery plug-in creates a hierarchical set of lazy-loading tabs from an initial unordered list of anchor tags.  We've found it a useful interface for web applications.  We hope you find it valuable as well.  It will probably be set up with the MIT-style license in the near future.</p>
+
+<p>This package is contains documentation and examples. It's presented in a zTabs based UI so you'll find it a useful test-bed for experimenting with zTabs.</p>
+
+<!-- input type='button' data-contenturl='tabTwo.html' class='zTab' data-label='From Button' data-tabid='fromButton' data-parentid='subTabs' value='fromButton'>
+
+<button data-contenturl='tabTwo.html' class='zTab' data-label='From Button' data-tabid='fromButton' data-parentid='subTabs' value='fromButton'>Foobar</button>
+
+<p>Documentation for zTabs Version 2 is available <a href='https://spork.ccs.nrl.navy.mil/ccsauth/wiki/zTabs'>on Spork.</a></p -->
+
+<h2>Quick Hints</h2>
+
+<p>Because this anchor tag has a class of "zTab" it automatically opens a new tab: <a href='tabTwo.html' class='zTab' data-maxLabelSize='12' data-closeable='true' data-parentid='subTabs' data-tabid='anchorTest'>Anchor with zTab Class</a></p>
+
+<p>The zGrayScreen module gives you an easy way to do dialog boxes: <a href='#' id='zGrayScreen'>zGrayScreen</a>.  It's similar to the jQuery plug-in called lightbox but has some benefits like a faster loading time, better support for long content and support for text only messages.</p>
+
+<pre>$().zGrayScreen({title:'foobar', html:'&lt;p&gt;Hello World&lt;/p&gt;', size:'small'});</pre>
+
+<p>This is an example of a text only message: <a href='#' id='zGrayScreen2'>zGrayScreen type:'text'</a></p>
+
+<pre>$().zGrayScreen({title:'foobar', html:'&lt;p&gt;Hello World&lt;/p&gt;', size:'small', type:'text'});</pre>
+
+<p>Build into this web application template is a simple way to send your user a notice or status update: <a href='blank.html' class='message'>messageToUser</a>.  To use this, just call messageToUser and pass it the HTML you want to display.  Documentation will be available soon on Spork, it it's not already.</p>
+
+<pre>messageToUser('Hello World');</pre>
+
+<p>zTabs will keep track of open tabs in the browser via localStorage.  If you need to clear that out use this zTabs method: <a href='#' id='clear'>$('#mainTabs').zTabs('clear');</a></p>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<p>This page is intentionally long</p>
+
+<script>
+
+$('.notzTab').click(function() {
+	$('#mainTabs').zTabs('add', {id:'addedThis', label:'Added This', contenturl:'blank.html', parentid:'subTabs'});
+	return false;
+});
+
+$('#zGrayScreen').click(function() {
+	$().zGrayScreen({title:'foobar', html:'<p>Hello World</p>', size:'small', type:'rounded'});
+	return false;
+});
+
+$('#zGrayScreen2').click(function() {
+	$().zGrayScreen({title:'foobar', html:'<p>Hello World</p>', size:'small', type:'text'});
+	return false;
+});
+
+$('#clear').click(function() {
+	$('#mainTabs').zTabs('clear');
+	messageToUser('Local tab storage has been cleared.');
+	return false;
+});
+
+$('.message').click(function() {
+	messageToUser('Hello World');
+	return false;
+});
+
+</script>

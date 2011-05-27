@@ -1,0 +1,1 @@
+$('#functionList').find('a').zTabsFromAnchor({closeable: true});

@@ -1,0 +1,23 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('showPath', &lt;path&gt;)</span>
+		<p>Leaves the current tab and shows the specified tab, by opening each tab along the path given in the string argument. The tab being shown does not have to already exist in the DOM when using this function, unlike with .zTabs('show').</p> 
+		<p>The initial selector can be the id of any existing tab or ul in the tabset.</p>
+		<p>The string argument should be a path which locates a tab within the tabset hierarchy, starting with the topmost tab and ending with the desired tab. Each component of the path should be the id of a tab, with slashes separating components. A valid path for .zTabs('showPath') is also a valid URL fragment, if it begins with '#/'.</p>
+		<p>Any appropriate functions bound to the current tab (such as onsleep) will execute before the specified tab can be shown. <!--Anything that prevents a clean exit from the current tab will also cancel .zTabs('showPath').--></p>
+		<p>Any onwake functions bound to tabs along the path will fire as those tabs are shown.</p>
+		<p>Returns a jQuery deferred object. A deferred object represents the completion status of a task, and can have any number of callbacks attached to it, which fire according to when and how the task resolves. Deferred objects which have already resolved can still accept callbacks, which will be fired immediately.</p>
+		<p>Showing a tab can depend on a number of factors, including functions such as onsleep and onwake, and any tab content which must be loaded. By returning a deferred object, .zTabs('showPath') allows you to base behavior off of the showing of a tab in a flexible way.</p>
+
+<!--p>Expects its string argument to be a path, which it opens as if the user has clicked on each of the tabs to drill down to the final tab.  Unlike .zTabs('show'), the tabs and subtabs do not have to be in the DOM yet in order to use this function.</p>
+		<p>Also unlike .zTabs('show'), the jQuery selector that starts the example below isn't the tab we're going to show. Instead, it's a handle to the tabset containing that tab.</p-->
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// The root of the path may be marked by '#/'</span>
+$("#mainTabs").zTabs('showPath', '#/subTabs/cars/ford'); 
+
+<span class='comment'>// The '#/' at the beginning of a path is optional</span>
+$("#tabOne").zTabs('showPath','demos');
+		</code></pre>
+	</div>
+</div>
+

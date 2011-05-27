@@ -1,0 +1,19 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('content'[, filter])</span>
+		<p>Returns a jQuery object representing the content of the specified tab or tabs -- the data that is displayed when the user selects the tab.</p>
+		<p>The initial selector should be a jQuery object representing one or more tabs.</p>
+		<p>This takes an optional filter argument that narrows the returned object to represent only things in the content which match the filter. The optional filter uses jQuery-style selector syntax, such as "#mainTabs" or ".classname".</p>
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Changes the content associated with the "tabOne" and "blue" tabs to 'Something new!'</span>
+$('#tabOne, #blue').zTabs('content').html('Something new!');		
+
+<span class='comment'>// Finds the current tab and changes its content to 'Loading...'</span>
+$('#mainTabs').zTabs('current').zTabs('content').html('Loading...');	
+
+<span class='comment'>// Changes the text for all the paragraphs in the current tab's content.</span>
+$('#mainTabs').zTabs('current').zTabs('content', 'p').html('Put this text in all the paragraphs');	
+		</code></pre>
+		<p><strong>Note:</strong> Because ".zTabs('current').zTabs('content')" is a common pattern, ".zTabs('cc')" is provided as a shortcut.</p>
+	</div>
+</div>

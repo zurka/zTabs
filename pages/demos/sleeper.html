@@ -1,0 +1,38 @@
+<div class='contentWithMargin'>
+	<p>When a user clicks on a tab, the onSleep functions associated with all the tabs that will be hidden is called.  If any of the onSleep functions return false, the click event is cancelled.</p>
+	
+	<br /><br />
+	
+	<form id='testForm' onSubmit='return false;' action="" method="get" accept-charset="utf-8">
+		<input type='checkbox' id='noSleep' name='noSleep'> <label for='noSleep'><b>Check this box to leave this tab.</b></label>			
+	</form>
+	
+	<br /><br />
+	
+	<pre>
+		
+		&lt;script&gt;
+			$('#demoSleeper').zTabs('property',{onsleep: function() {
+					if($('#noSleep').attr('checked')) {
+						return true;
+					} else {
+						alert('You must check the box before leaving this tab.');
+						return false;
+					}
+				}
+			});
+		&lt;/script&gt;
+		
+	</pre>
+</div>
+<script>
+	$('#demoSleeper').zTabs('property',{onsleep: function() {
+			if($('#noSleep').attr('checked')) {
+				return true;
+			} else {
+				alert('You must check the box before leaving this tab.');
+				return false;
+			}
+		}
+	});
+</script>

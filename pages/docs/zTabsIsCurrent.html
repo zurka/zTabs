@@ -1,0 +1,19 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('isCurrent')</span>
+		<p>Returns true if the given tab is the current tab, and false otherwise.</p>
+		<p>The initial selector should be a jQuery object representing a single tab. If more than one tab is in the jQuery set, then only the first tab in the set is used.</p>
+
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// Returns true if tabOne is the current tab</span>
+$('#tabOne').zTabs('isCurrent');	
+
+<span class='comment'>// Closes every tab in the second row that isn't the current tab</span>
+$('ul.row2 li').each(function(){ 
+	if(!$(this).zTabs('isCurrent')) { 
+		$(this).zTabs('close'); 
+	} 
+});
+		</code></pre>
+	</div>
+</div>

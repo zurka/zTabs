@@ -1,0 +1,30 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>.zTabs('parentContent'[, &lt;filter&gt;])</span>
+		<p>Returns a jQuery object representing the first content area in the DOM which contains a match for the initial selector.</p>
+		<p>The initial selector can be anything which can appear in the content area, however .zTabs('parentContent') will only match elements which currently exist in the DOM.</p>
+		<p>This takes an optional filter argument that narrows the returned object to represent only things in the content which match the filter. The optional filter uses jQuery-style selector syntax, such as "#mainTabs" or ".classname".</p>
+		<p>This function is similar to .zTabs('cc'), in that you can use it to target a specific content area without knowing any of the parent tab's identifying details. This behavior is valuable if tabs have been generated dynamically, and when a content element is a more meaningful identifier than whatever tab contains it. </p>
+
+		<div class='subSection'>Examples:</div>
+		<pre><code><span class='comment'>// Retrieves the current user's username
+// Populates the "firstname" field of the "testForm" form</span>
+var username = $('div.username').html();
+$('#testForm').zTabs('parentContent', 'input[name="firstname"]').val(username);
+<!--
+		
+		// a click on anchors with class name will cause and alert
+		$('a.name').click(function() {
+			alert("tab content: "+$(this).zTabs('parentContent').html());
+		}
+		<a href='' class='name'>Click Me</a>
+-->
+		</code></pre>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	$('a.name').click(function() {
+		alert("tab content: "+$(this).zTabs('parentContent').html());
+		return false;
+	});
+</script>

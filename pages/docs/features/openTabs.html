@@ -1,0 +1,26 @@
+<div class='contentWithMargin'>
+	<div class='func'>
+		<span class='funcName'>Opening Tabs</span>
+		<p>zTabs supports a number of ways for opening tabs.</p>
+		<div class='subSection'>Normal Tabs:</div>
+		<p>The first way for opening a tab is to set it up in HTML so that it is presented as a default tab when its row is loaded by zTabs.</p>
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// The HTML used to build the first tab in this Docs subrow</span>
+&lt;ul&gt;
+	&lt;li id='zTabsDocs'&gt;&lt;a href='pages/docs/list.html'&gt;zTabs Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+		<div class='subSection'>Dynamic Tabs:</div>
+		<p>zTabs also supports opening tabs dynamically, out of the box. HTML anchors and button elements can both be made to launch new tabs when clicked.</p>
+		<p>To cause one of these elements to open a new tab, add the zTab class to its HTML.</p>
+		<div class='subSection'>Example:</div>
+		<pre><code><span class='comment'>// Anchor with class zTab</span>
+&lt;a href='pages/docs/features/helloworld.txt' class='zTab'&gt;Hello World!&lt;/a&gt;
+<a href='pages/docs/features/helloworld.txt' class='zTab'>Hello World!</a>
+
+<span class='comment'>// Button with class zTab
+// The data-contenturl attribute specifies the content that will be loaded in the new tab</span>
+&lt;button type='button' class='zTab' data-contenturl='pages/docs/features/helloworld.txt'&gt;Hello World!&lt;/button&gt;
+<button type='button' class='zTab' data-contenturl='pages/docs/features/helloworld.txt'>Hello World!</button>
+	</div>
+</div>
