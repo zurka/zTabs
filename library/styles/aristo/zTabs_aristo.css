@@ -1,0 +1,105 @@
+#tabNavigation .row1,
+#tabNavigation .row2,
+#tabNavigation .row3 {
+     background-color: #DCDCDC;
+     border-left: 1px solid #B6B6B6;
+     border-right: 1px solid #B6B6B6;
+     background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0pt 0pt transparent;
+     border-bottom: 0.1em solid #B6B6B6;
+     padding: 0.7em 0pt 0pt 2em;
+     border-top: 0 none;
+}
+#tabNavigation .row1 { 
+	border-top: 1px solid #B6B6B6;
+}
+
+
+#tabNavigation ul {
+     background-attachment: scroll;
+     background-image: url("/prod/images/release_2/bkgd_tabNav.gif");
+     background-position: left bottom;
+     background-repeat: repeat-x;
+     border-width: 0pt;
+     margin: 0pt;
+     max-width: none;
+     padding-left: 10px;
+}
+
+#tabNavigation ul:after {
+     clear: both;
+     content: ".";
+     display: block;
+     height: 0pt;
+     visibility: hidden;
+}
+
+#tabNavigation li {
+     -moz-border-bottom-colors: none;
+     -moz-border-image: none;
+     -moz-border-left-colors: none;
+     -moz-border-right-colors: none;
+     -moz-border-top-colors: none;
+     border-color: #B6B6B6 #B6B6B6 -moz-use-text-color;
+     border-style: solid solid none;
+     border-top-left-radius: 3px;
+     border-top-right-radius: 3px;
+     border-width: 1px 1px 0pt;
+     float: left;
+     list-style-type: none;
+     margin: 0pt 0.2em 0pt 0pt;
+     white-space: nowrap;
+}
+
+#tabNavigation li a:link, #tabNavigation li a:visited {
+     background: -moz-linear-gradient(center top , #EDEDED, #C4C4C4) repeat scroll 0pt 0pt transparent;
+     border-top-left-radius: 3px;
+     border-top-right-radius: 3px;
+     box-shadow: 0pt 1px 0pt rgba(255, 255, 255, 0.6) inset;
+     color: #4F4F4F;
+     display: block;
+     font-size: 0.9em;
+     font-weight: bold;
+     outline: medium none;
+     padding: 0.23em 1em;
+     text-decoration: none;
+     text-shadow: 0pt 1px 0pt rgba(255, 255, 255, 0.5);
+}
+
+#tabNavigation li:hover {
+     -moz-border-bottom-colors: none;
+     -moz-border-image: none;
+     -moz-border-left-colors: none;
+     -moz-border-right-colors: none;
+     -moz-border-top-colors: none;
+     border-color: #6C6C6C #6C6C6C -moz-use-text-color;
+     border-style: solid solid none;
+     border-width: 1px 1px 0pt;
+}
+
+#tabNavigation li.currentWithSecondRow a, #tabNavigation li.overflowCurrentWithSecondRow a, #tabNavigation li.loadingWithSecondRow a, #tabNavigation li.current a {
+     background-color: #FFFFFF;
+     background-image: none;
+     border-bottom: 1px solid #FFFFFF;
+     color: #000000;
+     cursor: text;
+     margin-bottom: -1px;
+}
+
+#tabNavigation li.current:hover, #tabNavigation li.currentWithSecondRow:hover, #tabNavigation li.overflowCurrentWithSecondRow:hover, #tabNavigation li.loadingWithSecondRow:hover {
+     border-color: #AEAEAE;
+}
+
+#tabNavigation li a:hover, #tabNavigation li a:active {
+     color: #313131;
+}
+
+#tabNavigation li a {
+     cursor: pointer;
+     outline: medium none;
+}
+
+#bodyWrapper {
+     border-color: #B6B6B6;
+     border-style: none solid solid;
+     border-width: 0pt 1px 1px;
+}
