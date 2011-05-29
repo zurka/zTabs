@@ -15,6 +15,7 @@
 		contentdivid: false,
 		imagebaseurl: 'library/images/',
 		closebutton: false,
+		closebuttonurl: 'library/themes/aristo/images/close_tab_button_aristo.png',
 		fromanchor: 'a.zTab, button.zTab, input[type="button"].zTab',
 		replace: 'a.zReplace',
 		formreplace: 'form.zReplace',
@@ -82,7 +83,7 @@
 				}
 	
 				if (!settings.closebutton) {
-					settings.closebutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'close_tab_button_white.gif">';
+					settings.closebutton = '<img width="11" height="11" border="0" src="'+settings.closebuttonurl+'">';
 				}
 				if (!settings.refreshbutton) {
 					settings.refreshbutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'refresh_button.png">';
