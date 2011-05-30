@@ -65,7 +65,7 @@
      border-width: 1px 1px 0pt;
      float: left;
      list-style-type: none;
-     margin: 0pt 0.2em 0pt 0pt;
+     margin: 0pt 0.11em 0pt 0pt;
      white-space: nowrap;
 }
 
@@ -79,7 +79,7 @@
      font-size: 0.9em;
      font-weight: bold;
      outline: medium none;
-     padding: 0.23em 1em;
+     padding: 0.25em 1em;
      text-decoration: none;
      text-shadow: 0pt 1px 0pt rgba(255, 255, 255, 0.5);
 }

@@ -83,7 +83,7 @@
 				}
 	
 				if (!settings.closebutton) {
-					settings.closebutton = '<img width="11" height="11" border="0" src="'+settings.closebuttonurl+'">';
+					settings.closebutton = '<img src="'+settings.closebuttonurl+'">';
 				}
 				if (!settings.refreshbutton) {
 					settings.refreshbutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'refresh_button.png">';
