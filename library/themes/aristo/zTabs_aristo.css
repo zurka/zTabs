@@ -21,7 +21,6 @@
      padding-left: 0.2em;
 }
 
-#tabNavigation .row1,
 #tabNavigation .row2,
 #tabNavigation .row3 {
      background-color: #DCDCDC;
@@ -33,7 +32,7 @@
      border-top: 0 none;
 }
 #tabNavigation .row1 { 
-	border-top: 1px solid #B6B6B6;
+	border-bottom: 1px solid #B6B6B6;
 }
 
 
