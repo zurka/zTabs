@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.17
+* Version 2.0.18
 * @requires jQuery v1.5 or later
 *
 * roberson@zurka.com
@@ -1002,7 +1002,7 @@
 						});
 						// return dfd.promise();
 					}
-				} else {
+				} else {					
 					// label the content div
 					if(typeof $(contenturl).attr('data-ztabid') == 'undefined') {
 						$(contenturl).attr('data-ztabid', $nextTabId.data('ztabid')+'_content');
@@ -1158,23 +1158,29 @@
 							loadingTabComplete(nextTabId);
 							clickLock = false;
 
+							if(contentdivid != '') {
+								$('#'+contentdivid).append(dataContent);
+							} else {
+								$nextTabId.parent().after(dataContent);
+							}
+
 							// Slide open the tab once everything is finished
 							dfd.then(function() {
 								if($.browser.msie && $.browser.version.substr(0,1) < 8) {
 									// ie6/7 are too slow for the sliding
 									$newUL.css({display:''});
-									if(contentdivid != '') {
-										$('#'+contentdivid).append(dataContent);
-									} else {
-										$nextTabId.parent().after(dataContent);
-									}
+									// if(contentdivid != '') {
+									// 	$('#'+contentdivid).append(dataContent);
+									// } else {
+									// 	$nextTabId.parent().after(dataContent);
+									// }
 								} else {
 									$newUL.slideDown('fast', function() {
-										if(contentdivid != '') {
-											$('#'+contentdivid).append(dataContent);
-										} else {
-											$nextTabId.parent().after(dataContent);
-										}
+										// if(contentdivid != '') {
+										// 	$('#'+contentdivid).append(dataContent);
+										// } else {
+										// 	$nextTabId.parent().after(dataContent);
+										// }
 										$(this).css('display', '');
 									});
 								}
