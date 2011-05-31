@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.16
+* Version 2.0.17
 * @requires jQuery v1.5 or later
 *
 * roberson@zurka.com
@@ -256,7 +256,7 @@
 			// It's a list
 			if($this.is('ul')) {
 				var $tabSet = $(getTabSet());
-				var newId = $tabSet.data('zTabsSet')+"_"+$tabSet.data('ztabsid');
+				var newId = $tabSet.data('ztabsset')+"_"+$tabSet.data('ztabsid');
 				$tabSet.data('ztabsid',  parseInt($tabSet.data('ztabsid'), 10)+1);
 
 				var newLi = document.createElement('li');
@@ -701,7 +701,7 @@
 	//
 	// Walk through the list items and set up their initial values
 	//
-	function parseTheList(obj, rowNumber) {		
+	function parseTheList(obj, rowNumber) {
 		// first add the row class
 		$(obj).addClass('row'+rowNumber);
 
@@ -720,7 +720,7 @@
 				$(this).data('contenturl', $(this).find('a').attr('href'));
 			}
 						
-			$(this).attr('data-ztabid',$(topUl).data('zTabsSet')+"_"+$(topUl).data('ztabsid'));
+			$(this).attr('data-ztabid',$(topUl).data('ztabsset')+"_"+$(topUl).data('ztabsid'));
 			$(topUl).data('ztabsid', $(topUl).data('ztabsid')+1);  // ++
 			
 			// IE turns a href like #something into http://www.zurka.com/theCurrentPage.php#something once
