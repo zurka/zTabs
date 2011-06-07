@@ -1,133 +1,26 @@
-/* With this version of zTabs.css, the core zTabs styles have been completely 
-revamped. 
-
-Please note that any style rules in zTabsIE7.css which depend on prior versions 
-of zTabs.css may need to be deleted or updated.
-
-Styles in zTabsIE7.css which apply only to content should not require any 
-changes. */
-
-
-#pageWrapper {
-	/* higher than dot background */
-	z-index:14;
+/* This disables the rounded left corner on row 1. Because of IE7's broken box-model,
+the rounded right corner falls off the right edge of the row. The issue needs
+revisiting, but in the meantime this is better than mismatched corners. */
+ul.row1 { 
+	background:none;
 }
-#header {
-	/*background:none;*/
+
+/* A small bit of spacing above the select, which is a slight
+improvement at the default text size. */
+ul.zTabs select {
+	margin-top:0.1000em;
 }
 
 
-/* image within the button part of a closeable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.closeTabButton img,
-#tabNavigation ul.row1 li.current a.closeTabButton img,
-#tabNavigation ul.row1 li.overflowCurrent a.closeTabButton img,
-#tabNavigation ul.row1 li.loading a.closeTabButton img,
-#tabNavigation ul.row1 li.currentWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.currentSubTabs a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.current a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.loading a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.closeTabButton img { 
-	margin-top:0.7000em
-}
-
-/* image within the button part of a closeable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.refreshTabButton img,
-#tabNavigation ul.row1 li.current a.refreshTabButton img,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton img,
-#tabNavigation ul.row1 li.loading a.refreshTabButton img,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.currentSubTabs a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton img { 
-	margin-top:0.7000em
-}
-
-/* IE7 tab modifications, because transparent borders don't work as they should in IE7*/
-
-#tabNavigation a,
-#tabNavigation span {
-	padding-left:0.1000em; /* in place of transparent border */
-	padding-right:1.6000em;
-	border-left:0;
-	border-right:0;
-}
-
-#tabNavigation li a:first-child,
-#tabNavigation li span:first-child {
-	padding-left:1.6000em;
-}
-
-/* Anchors (and spans) where there's an active tab style */
-#tabNavigation ul.row1 li.current span,
-#tabNavigation ul.row1 li.current a,
-#tabNavigation ul.currentSubTabs li.current span,
-#tabNavigation ul.currentSubTabs li.current a,
-
-#tabNavigation ul.row1 li.overflowCurrent span,
-#tabNavigation ul.row1 li.overflowCurrent a,
-#tabNavigation ul.currentSubTabs li.overflowCurrent span,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a,
-
-#tabNavigation ul.row1 li.loading span,
-#tabNavigation ul.row1 li.loading a,
-#tabNavigation ul.currentSubTabs li.loading span,
-#tabNavigation ul.currentSubTabs li.loading a {
-	padding-right:1.5000em;
-}
-
-/* Anchors (and spans) where there's an active tab style */
-#tabNavigation ul.row1 li.current span:first-child,
-#tabNavigation ul.row1 li.current a:first-child,
-#tabNavigation ul.currentSubTabs li.current span:first-child,
-#tabNavigation ul.currentSubTabs li.current a:first-child,
-
-#tabNavigation ul.row1 li.overflowCurrent span:first-child,
-#tabNavigation ul.row1 li.overflowCurrent a:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrent span:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a:first-child,
-
-#tabNavigation ul.row1 li.loading span:first-child,
-#tabNavigation ul.row1 li.loading a:first-child,
-#tabNavigation ul.currentSubTabs li.loading span:first-child,
-#tabNavigation ul.currentSubTabs li.loading a:first-child {
-	padding-left:1.5000em;
-}
-
-/* Button part of a refreshable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.refreshTabButton,
-#tabNavigation ul.row1 li.current a.refreshTabButton,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton,
-#tabNavigation ul.row1 li.loading a.refreshTabButton,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.currentSubTabs a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton {
-	border-left:0;
-}
-
-/* Modifications to the overflow tabs*/ 
-.overflowTab span {
+/* Line height does no good here in IE7, so use height. */
+ul.zTabs span {
 	height:2em;
 }
 
-.overflowTab select {
-	position:relative;
-	top:0.1000em;
+
+/* The close button lines up differently in IE7 than in other browsers. */
+ul.zTabs li a.closeTabButton img,
+ul.zTabs li span.closeTabButton img {
+	margin-top:0.6000em
 }
+
