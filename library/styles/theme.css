@@ -1,0 +1,434 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++  NRL THEME STYLES  ++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The styles below here contribute to the overall theme, but are not
+specifical to zTabs.
+
+They control the page background, the page header, the content area, 
+optional elements like the popForward menu, and so on. */
+
+
+html {
+	/* IE allowance */
+	font-size:100%;
+	height:100%; /* Part of the magic for making the BG the full page height. */
+}
+
+
+body {
+	height:100%; /* Part of the magic for making the BG the full page height. */
+
+	text-align:center;
+
+	/* BG color and a BG image, which will sit below any other decorations */
+	background: #000066 url('../images/custom_background.gif') no-repeat;
+}
+
+
+/* Purely decorative style, controls the diagonals which cover the body */
+#body-decoration {
+	width:100%;
+	z-index:3;
+	top:0;
+	left:0;
+	position:fixed; /* These shouldn't move when the page scrolls */
+	min-height:100%;
+	background: url('../images/page_dot_pattern.png') repeat-x;
+}
+
+/* Purely decorative style, controls the gradiant shadow which spans the
+top of the page. */
+#body-decoration2 {
+	width:100%;
+	position:absolute;
+	z-index:10;
+	top:0;
+	left:0;
+	height:3.3000em;
+	background: url('../images/top_gradient.png') repeat-x;
+	border-top:0.1000em solid black;
+}
+
+#pageWrapper {
+	/* Center the pageWrapper on the page */
+	margin-left: auto;
+	margin-right: auto;
+	
+	text-align: left; /* Undo text-align:center from the body style */
+
+	min-height:100%; /* */
+
+	position:relative; /* for popforward menu, and probably for z-index as well */
+	z-index:15; /* Keeps the pageWrapper above the diagonals, even in IE */
+}
+
+/* Optional body styles, both of which should make the content area stretch
+to the bottom of the browser window */ 
+body.fullwidth #pageWrapper, 
+body.fullheight #pageWrapper {
+
+	/* This is what makes the really tall white background */
+	background: url('../images/pagewrapper_bg.gif') repeat-x 0 64em;
+}
+
+#tabNavigation {
+	position: relative; /* for setting relative to the bodywrapper */
+	z-index:5;
+}
+
+/* Optional body style, which should make the tabs span the width of the page. */
+body.fullwidth #tabNavigation {
+	background: url('../images/menu_bar_wide.gif') repeat-x top left;
+}
+
+
+/*--------------------------------------------
+ * HEADER
+ *--------------------------------------------*/
+
+#header {
+	min-height: 5.5000em;
+	overflow: auto;
+ 	background-image: url('../images/header_glow.png');
+ 	background-repeat: repeat-y;
+ 	background-position:center;
+}
+
+#header,
+#header a {
+	color: #DDDDDD;
+}
+
+#header #logo {
+	position: absolute;
+	width: 9em;
+	z-index:20;
+	top:-0.9000em;
+	left: 0;
+
+	height: 5.7000em;
+	background: url('../images/generic_logo.png') no-repeat bottom;
+}
+
+#header #titleBlock {
+	float: left;
+	margin-left: 9em;
+	padding-top:1em;
+	position:relative;
+	z-index:20;
+}
+
+#header #titleBlock .title {
+	font-size: 2.2000em;
+	padding-right:1em; /* to aid in highlighting the title text */
+}
+
+#header #titleBlock .subTitle {
+	font-size: 1.1000em;
+}
+
+#header #userBlock {
+	float: right;
+	text-align: right;
+	padding-right: 1.2000em;
+	padding-top: 1.1000em;
+	position:relative;
+	z-index:20;
+}
+
+#header #userBlock .username {
+	font-size: 1.6500em;
+}
+
+#header #userBlock .loginout {
+	font-size: 1.1000em;
+}
+
+
+/*--------------------------------------------
+ * CONTENT AREA
+ *--------------------------------------------*/
+
+#bodyWrapper {
+	background-color: white;
+	padding-top:1.4000em;
+	padding-bottom:1.4000em;
+	min-height:64em;
+	position:relative;
+    z-index: 20; 
+}
+
+#mainContent {
+
+	clear: both;
+
+    background: #fff;
+
+    font-family: arial, helvetica;
+    font-style: normal;
+
+	/* NOTE: AT THIS POINT WE'RE SWITCHING TO PX FOR EVERYTHING INSIDE
+	OF mainContent */
+    font-size: 12px;
+
+	padding: 10px 20px;
+	padding-top:0;
+	padding-bottom:0;
+
+    min-height: 640px;
+}
+
+/*--------------------------------------------
+ * OPTIONAL PIECES
+ *--------------------------------------------
+
+zTabs has some modular features, and common add-ons, some of which require
+styling. */ 
+
+
+/* zTabsScroll.js 
+Compensates for when the page scrolls faster than javascript can respond, and
+the page's BG becomes visible between the tabs and the content area.*/
+div#topWrapper {
+	background: url('../images/pagewrapper_bg.gif') repeat-x 0 6em;
+}
+
+/* zTabsScroll.js
+First row BG when tabs are fixed to the top of the page. */
+#tabNavigation.scrollingNav, 
+#tabNavigation.scrollingNav ul.row1 {
+	background-image: url('../images/menu_bar_wide.gif');
+}
+
+/* popForwardMenu */
+
+#popForwardMenu {
+    position: absolute;
+    left: -6em;
+    top: 14em;
+    background: #b0b0c8 url('../images/menu_shadow.gif') repeat-y left;
+    border: solid 0.1000em #ffcc33;
+	z-index:4;
+}
+
+#popForwardMenu.hover {
+    z-index: 230;
+    background: #b0b0c8;
+}
+
+#popForwardMenu.hover li.selected {
+    list-style-type: none;
+    margin: 0;
+    padding: 0.7500em 1em;
+    color: #000066;
+    background: #ffffff;
+}
+
+#popForwardMenu li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0.7500em 1em;
+}
+
+#popForwardMenu ul {
+    padding: .5em .5em;
+    margin: 0;
+    list-style: none;
+}
+
+#popForwardMenu a {
+    padding: 0.7500em 0em;
+    color: #000066;
+}
+
+/* when 1.3 gets used convert this to a .live binding */
+#popForwardMenu li:hover {
+    color: #000066;
+    padding: 0.7500em 1em;
+    background: #ffcc33;
+}
+
+#popForwardMenu li.selected {
+    list-style-type: none;
+    margin: 0;
+    padding: 0.7500em 1em;
+    color: #000066;
+    background: #ffffff url('../images/menu_shadow_selected.gif') repeat-y left;
+}
+
+/* AJAX indicator */
+
+#ajaxLoading {
+	position: absolute;
+	top: 0;
+	z-index: 200;
+	width: 34em;
+	left:50%;
+	margin-left:-17em; 
+	height:6em;
+	background: url('../images/ajax-loader.gif') no-repeat center center;	
+}
+
+/* MessageToUser */
+
+#messageWrapper {
+	position: fixed;
+	top: 0;
+	width: 34em;
+	left:50%;
+	margin-left:-17em; 
+	z-index: 201;
+}
+
+#messageToUser {
+	border-right: 0.1000em solid #645f68;
+	border-bottom: 0.1000em solid #645f68;
+	border-left: 0.1000em solid #645f68;
+	color: #f8981d;
+	width: 100%;
+	background: url('../images/grayScreen.png');
+	text-align: center;
+	overflow: hidden;
+	z-index: 201;
+	margin: auto;
+}
+
+#messageToUser p {
+/* 
+(1 / Parent's Font Size) x required pixel value = em
+(1 / 10px) x 14px = 1.4em
+*/
+	font-size: 1.4em;
+/* (1/14px)*8px = 0.5714 -> 0.6em */
+	margin: 0.6000em 0.6000em 0 0.6000em;
+	
+}
+
+#messageToUserClose {
+	margin-top: 0.8000em;
+	margin-bottom: 0.6000em;
+}
+
+#messageToUserClose a {
+	font-size: 1.1000em;
+	color: #ccc;
+	text-decoration: none;
+}
+
+
+/*--------------------------------------------
+ * SPECIFIC STYLES
+ *--------------------------------------------*/
+
+/* STRIPED TABLES */
+table.striped {
+	color: #000;
+	font-family: arial;
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0px;
+	border: solid 1px #bab3a1; 
+	width: 100%;
+	margin: 12px 0;
+}
+
+table.striped tr.even {
+	background: #e6e6ff;
+	font-size: 12px;
+}
+
+table.striped tr.odd {
+	background: #fff;
+	font-size: 12px;
+}
+
+table.striped td {
+	padding: 4px 6px;
+	/* border-right: solid 1px #bab3a1;
+	border-bottom: solid 1px #bab3a1; */
+	width: auto;
+}
+
+table.striped th {
+	background: #bab3a1;
+	padding: 4px 2px 4px 18px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+}
+
+table.striped th a {
+	color: #fff;
+}
+
+table.striped td a {
+	color: #000;
+}
+
+
+/* OTHER */
+.funcName {
+	font: normal normal bold 1.5em/2.0em Arial, sans-serif;
+	color: #009;
+}
+.option {
+	margin-bottom:5px;
+}
+.optionName {
+	font: normal normal bold 1em/1.5em Arial, sans-serif;
+}
+.subSection {
+	font: normal normal bold 1em/1.5em Arial, sans-serif;
+	text-decoration: underline;
+	margin-top: 12px;
+	margin-left:24px;
+}
+
+pre {
+	margin-top: 6px;
+}
+
+code {
+	display:block;
+	margin:0px 24px;
+	line-height:20px;
+}
+
+code .comment,
+code .inlineComment {
+	color:#666666;
+}
+
+code .inlineComment {
+	margin-left:14px;
+}
+
+.functionList td.first, 
+.functionList th.first {
+	width:25%;
+}
+.functionList a {
+	color: #009;
+	font-size: 12px;
+}
+.functionList {
+	color: #000;
+	font-size: 12px;
+}
+.demoList li {
+	margin: 20px;
+}
+
+table.striped th.headerSortUp { 
+    background: #666666 url('../images/asc.gif') no-repeat; 
+}
+
+table.striped th.headerSortDown { 
+    background: #666666 url('../images/desc.gif') no-repeat;
+}
+
