@@ -1,930 +1,376 @@
-/*
-EM formula:
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++  zTabs STYLES  ++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-(1 / Parent's Font Size) x required pixel value = em
-1/10 = 0.1
-0.1 x 12 = 1.2em
+The styles below are the core styles which contribute to the look and 
+feel for zTabs, at least for the styling approach we've taken. zTabs is
+pretty flexible, and can accodate a lot of different styling decisions.
 
-1/12 = 0.08333333333
-0.08333333 x 6 = 0.5000em
+The other styles (background images, theme specific, etc.) are in the 
+theme.css file.
 
+-CWS Jun 07, 2011
 */
-html {
-	/* IE allowance */
-	font-size:100%;
-	height:100%;
-}
+
+/*--------------------------------------------
+ * BODY
+ *--------------------------------------------
+
+Basic body styles which significantly affect look of the page. */
+
 
 body {
-	height:100%;
+	/* Setting the font-size here simplifies initial em 
+	calculations, with 10px = 1em */
 	font-size: 62.5%;
+
+	/* These only affect the look and feel of the site. */
+	margin:0;
+	padding:0;
 	font-family: Arial, "MS Trebuchet", sans-serif;
-	text-align:center;
-	margin: 0;
-	padding: 0;
-	background: #000066 url('../images/custom_background.gif') no-repeat;
 }
 
-body.fullwidth {
-	background: #ffffff url('../images/background_circles.jpg') repeat-x;
-	background: #000066 url('../images/custom_background.gif') no-repeat;
-}
 
-#body-decoration {
-	width:100%;
-	z-index:3;
-	top:0;
-	left:0;
-	position:fixed;
-	min-height:100%;
-	background: url('../images/page_dot_pattern.png') repeat-x;
-}
+/*--------------------------------------------
+ * zTabs WIDTHS
+ *--------------------------------------------
 
-#body-decoration2 {
-	width:100%;
-	position:absolute;
-	z-index:10;
-	top:0;
-	left:0;
-	height:3.3000em;
-	background: url('../images/top_gradient.png') repeat-x;
-	border-top:0.1000em solid black;
-}
+pageWrapper's width will cascade down to tabNavigation,
+and then to mainTabs and subRows, and from subRows to the child ULs. 
 
+zTabs uses a UL's width when calculating out how many
+tabs it can show at once. */
+
+
+/* Normal pageWrapper */
 #pageWrapper {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: left;
 	width: 89em;
-	position:relative; /* for popforward menu */
-	min-height:100%;
 }
 
+/* pageWrapper which spans the entire width of a browser window */
 body.fullwidth #pageWrapper {
 	width:auto;
 }
 
-body.fullwidth #pageWrapper, 
-body.fullheight #pageWrapper {
-	/* This is the really tall white background */
-	background: url('../images/pagewrapper_bg.gif') repeat-x 0 64em;
-}
-
-div#topWrapper {
-	background: url('../images/pagewrapper_bg.gif') repeat-x 0 6em;
-}
-
-
-/* Header */
-
-#header {
-	min-height: 5.5000em;
-	overflow: auto;
- 	background-image: url('../images/header_glow.png');
- 	background-repeat: repeat-y;
- 	background-position:center;
-}
-
-#header,
-#header a {
-	color: #DDDDDD;
-}
-
-#logo {
-	position: absolute;
-	width: 9em;
-	height: 5.7000em;
-	background: url('../images/generic_logo.png') no-repeat bottom;
-	z-index:20;
-	top:-0.9000em;
-	left: 0;
-}
-
-#header #titleBlock {
-	float: left;
-	margin-left: 9em;
-	padding-top:1em;
-	position:relative;
-	z-index:20;
-}
-
-#header #titleBlock .title {
-	font-size: 2.2000em;
-	padding-right:1em; /* to aid in highlighting the title text */
-}
-
-#header #titleBlock .subTitle {
-	font-size: 1.1000em;
-}
-
-#header #userBlock {
-	float: right;
-	text-align: right;
-	padding-right: 1.2000em;
-	padding-top: 1.1000em;
-	position:relative;
-	z-index:20;
-}
-
-#header #userBlock .username {
-	font-size: 1.6500em;
-}
-
-#header #userBlock .loginout {
-	font-size: 1.1000em;
-}
-
-/* Tabs */
-
 #tabNavigation {
-	background: url('../images/menu_bar.gif') no-repeat top left;
-	position: relative; /* for setting relative to the bodywrapper */
-	z-index:5;
-}
 
-/* Explicit support for zTabsScroll.js -- this moves the image css out of the javascript file itself*/
-#tabNavigation.scrollingNav {
-	background-image: url('../images/menu_bar_wide.gif');
-}
-
-body.fullwidth #tabNavigation {
-	background: url('../images/menu_bar_wide.gif') repeat-x top left;
-}
-
-#tabNavigation a,
-#tabNavigation span {
-	/* Resetting font-size, requires recalculating the pixel value of em  ...
-	Prior font size was 10px, new is 12px ... 
-	Em formula is (1 / Current font size) x required pixel value = em
-	6 * 1/12 = 6/12 = 0.5000em (6px)
-	*/
-	font-size: 1.2000em;
-	text-decoration: none;
-	display: block;
-	padding-left: 0;
-	padding-right: 1.5000em;
-	color: #000066;
-	outline:none;
-	line-height:2em;
-
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-
-	border-left:0.1000em solid transparent;
-	border-right:0.1000em solid transparent;
-/*
-	border: 0.1000em solid red;
-	border-bottom:none;
-*/
-}
-#tabNavigation li a:first-child,
-#tabNavigation li span:first-child {
-	padding-left: 1.5000em;
-}
-
-#tabNavigation ul {
-	margin:0;
-}
-
-#tabNavigation ul.row1 {
-	margin: 0;
-	margin-left: 2em; /* Should account for logo */
-	padding: 0;
-	padding-top:0.7000em;
-	list-style: none;
+	/* tabNavigation contains zTabs' ULs, which are floated (see below). 
+	By setting overflow hidden, tabNavigation WON'T collapse around the floated ULs,
+	and we avoid any additional markup in our HTML. (e.g. a div with 'clear:left') */
 	overflow: hidden;
-	background: url('../images/menu_bar.gif') no-repeat top right;
-	min-height: 2.5000em;
 
-	/* for setting relative to subrows */
-	position:relative; 
-	z-index: 10;
-}
-
-/* Explicit support for zTabsScroll.js -- this moves the image css out of the javascript file itself*/
-#tabNavigation ul.row1.scrollingNav {
-	background-image: url('../images/menu_bar_wide.gif');
-}
-
-body.fullwidth #tabNavigation ul.row1 {
-	background: none;
-}
-
-#tabNavigation ul.row1 li {
-	margin: 0;
-	padding: 0;
-	float: left;
-}
-
-/*
-#tabNavigation #subRows {
-	clear:both;
-	background: url('../images/second_row_bg.gif') no-repeat top left;
-
-	/* for setting relative to mainTabs */
-/*
-	position:relative;
-	z-index: 15; 
 	
-}
-*/
-
-#tabNavigation ul.currentSubTabs {
-
-	background: #F1F1D9 url('../images/third_row_bg.gif') no-repeat top left;
-	margin: 0;
-	padding-top:0.7000em;
-	padding-left: 2em;
-	list-style: none;
-
-	height:2.4000em;
-	border-bottom: 0.1000em solid #BAB3A1; 
-
-	position:relative;
+	/* This is pretty much the "sliding doors" CSS technique, where two images 
+	(or the same image twice) sit partially on top of each other, but not entirely
+	so that one image peaks out from behind the other. See the .row1 style for 
+	the other half. */
+	background: url('../images/menu_bar.gif') no-repeat top right;
 }
 
-#tabNavigation ul.currentSubTabs li {
-	margin: 0;
-	padding: 0;
-	float:left;
-}
+/*--------------------------------------------
+ * HIDDEN CONTENT
+ *--------------------------------------------
 
-#tabNavigation ul.row2 {
-	background: #E5E3C3 url('../images/second_row_bg.gif') no-repeat top left;
-}
-
-.hiddenTab {
-	display: none;
-}
+This is used to hide child rows which are not active, 
+and also content which is not active. */ 
 
 .hiddenTabContent {
 	display:none;
 }
 
+/*--------------------------------------------
+ * ROW STYLES
+ *--------------------------------------------
+
+There are several ways to target zTabs rows. You may wish to affect all of them
+at once, or different subsets of rows. */ 
+
+
+/* All ULs which zTabs manages will have the .zTabs class,
+so this is one way you can affect all of them at once. */
+ul.zTabs {
+
+	/* This is just resetting the styles different browsers
+	apply to unordered lists */
+	list-style-type: none;
+	margin:0;
+	padding:0;
+
+	/* Floating left removes the UL from the web page's flow, which we use 
+	to make tabs look like they're flowing smoothly into their subrows.  */
+	float:left;
+
+	/* By floating the UL, it collapses around its content, which in this case
+	is floated LIs. So we have to use width 100% and set the height if we 
+	want our ULs to not collapse.*/
+	width:100%;
+	height: 2.4em;
+
+	/* Purely cosmetic styles. */
+	background-color: #F1F1D9;
+	border-bottom: 0.1000em solid #BAB3A1; 
+
+	/* This puts some space between the edges and the tabs. */
+	padding-left:2em;	
+	padding-top: 0.7000em;
+
+	/* Fixes an IE9 problem, where row1 tabs hang down on top of the next row */
+	position:relative;
+}
+
+
+/* This style affects all visible rows beyond the first. */
+ul.currentSubTabs { 
+
+	/* This is our default background. We'll use specific BGs for 
+	rows 1 and 2 below. */
+	background: #F1F1D9 url('../images/third_row_bg.gif') no-repeat top left;
+}
+
+
+/* These styles affect specific rows. zTabs will make as many rows as it needs to,
+assigning each one a class which can be styled independently. */
+ul.row1 {
+	/* This sits on top of tabNavigation's bg, and forms the left corner
+	of the .row1 background. */
+	background: url('../images/menu_bar_left.gif') no-repeat top left; 
+} 
+ul.row2 {
+	background: #E5E3C3 url('../images/second_row_bg.gif') no-repeat top left;
+} 
+ul.row3, 
+ul.row4, 
+ul.row5 { /* Not currently being used */ }
+
+
+/*--------------------------------------------
+ * DEFAULT TAB STYLES
+ *--------------------------------------------
+
+LIs are block elements by default, and they will take up 
+the full width of their container, which will unfortunately cause zTabs  
+to place the tabs into overflow.
+
+So we want to somehow constrain tab widths, so that several can 
+be displayed on a row at one time.
+
+Displaying as inline-blocks, floating left, and setting an explicit width
+are all ways to control LI widths. There are many methods on the Internet for 
+using CSS to style tabbed interfaces.
+*/
+
+ul.zTabs li {
+	margin: 0;
+	padding: 0;
+
+	/* Inline block avoids having to somehow clear
+	(e.g. with overflow:auto or overflow:hidden)
+	the containing UL when its innards all get floated.
+
+	But not all browsers support inline-block in the same way. */
+	float: left;
+
+	/* This positions the tabs, so that, if the tab has a close button,
+	we can position that button absolutely within the tab. */
+	position:relative;
+}
+
+
+/* Tab appearance is mostly controlled by styling anchors and spans.
+
+Tabs are usually LIs containing anchors. The overflow tab (when necessary)
+is an LI containing a span, which contains a select element. */
+ul.zTabs a,
+ul.zTabs span {
+
+	display: block;
+	line-height:2em;
+
+	/* Tabs normally consist of only one anchor, with just text. Tabs with 
+	more than one anchor (e.g. with buttons) are handled in a style below. */
+	padding-left: 1.5000em;
+	padding-right: 1.5000em;
+
+	/* These are essentially placeholder borders, they'll be replaced
+	if the tabs become active (current, overflow, etc.) */
+	border-left:0.1000em solid transparent;
+	border-right:0.1000em solid transparent;
+
+	/* Rounded corners */
+	-moz-border-radius-topleft: 0.6000em;
+	-moz-border-radius-topright: 0.6000em;
+	-webkit-border-top-left-radius: 0.6000em;
+	-webkit-border-top-right-radius: 0.6000em;
+	border-top-left-radius: 0.6000em;
+	border-top-right-radius: 0.6000em;
+
+	/* Font stuff */
+	text-align: center;
+	color: #000066;
+	text-decoration: none;
+
+	/* Because we want our em calculations to be as simple as possible, if
+	we have to adjust our font sizes, we try to do it where it will cause us
+	as little trouble as possible (i.e. elements which aren't usually parents) */
+	font-size:1.2000em;		
+}
+
+
+/* Some browsers provide a default outline around certain interactive
+elements, like anchors, for accessibility. Because active tabs are
+already visually differentiated, we turn off the outline. */
+ul.zTabs li a,
+ul.zTabs li span {
+	outline:none;
+}
+
+
+/*--------------------------------------------
+ * HOVER TABS
+ *--------------------------------------------
+
+Generally, tabs which are being hovered over get some special treatment. 
+When we have a span instead of an anchor, it should still behave like an anchor. */
+ul.zTabs li:hover a,
+ul.zTabs li:hover span {
+	color:#444444;
+	background: #F5EED8 url('../images/menu_bar_background_highlight.gif') repeat-x bottom;
+	cursor:pointer;
+}
+
+/* There are a few cases where a tab should have its hover styles turned off */
+ul.zTabs li.disableHover:hover a,
+ul.zTabs li.disableHover:hover span {
+	color: #000066;
+	background: none;
+}
+
+/*--------------------------------------------
+ * OVERFLOW TAB STYLES
+ *--------------------------------------------*/
+
+/* This is used when there are too many tabs to display at once,
+and an overflow tab has been created.
+
+The tabs which have overflown aren't removed from the DOM, they're just hidden.
+*/
+.hiddenTab {
+	display: none;
+}
+
+/* This is not stricly necessary, but it helps prevents the 
+overflow tab from changing widths when tabs are added or removed
+from overflow. */
 .overflowTab select {
 	width: 7.200em;
 }
 
 
-/* Hover Tabs */
-#tabNavigation ul.row1 li:hover span,
-#tabNavigation ul.currentSubTabs li:hover span, 
-#tabNavigation ul.row1 li:hover a,
-#tabNavigation ul.currentSubTabs li:hover a {
-	color:#444444;
-	background: #F5EED8 url('../images/menu_bar_background_highlight.gif') repeat-x bottom;
+/*--------------------------------------------
+ * CURRENT TAB (NO SUBROWS)
+ *--------------------------------------------*/
 
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
+ul.zTabs li.current a,
+ul.zTabs li.current span,
+ul.zTabs li.overflowCurrent a,
+ul.zTabs li.overflowCurrent span {
+
+	/* This was originally on the list item, but it makes as much sense here. 
+	By specifying background instead of background-color, and placing this below
+	the hover style, we can ensure that only non-"active" tabs change BGs when
+	hovered over. */
+	background: white;
+	color: #000066;
+
+	border: 0.1000em solid #BAB3A1;
+	border-bottom: none;
 }
 
-/* We don't want the text color to change when hovering over a current tab.
-   We don't want the background to change, either, but that's covered by the 
-   "Current Tabs" styles. 
+/*--------------------------------------------
+ * CURRENT TAB (WITH SUBROWS)
+ *--------------------------------------------*/
 
-	Also, it can't hurt to have a style specifically for turning 
-	off hover styles, so let's do that with .disableHover.
-	
-	The following four groupings could all be one giant style, but it's easier 
-	when troubleshooting to break them up.
-*/
-#tabNavigation ul.row1 li.disableHover:hover span,
-#tabNavigation ul.row1 li.disableHover:hover a, 
-#tabNavigation ul.currentSubTabs li.disableHover:hover span,
-#tabNavigation ul.currentSubTabs li.disableHover:hover a { 
-	color:#000066;
-	background:none;
+ul.zTabs li.currentWithSecondRow a,
+ul.zTabs li.currentWithSecondRow span,
+ul.zTabs li.overflowCurrentWithSecondRow a,
+ul.zTabs li.overflowCurrentWithSecondRow span {
+	/* The tab bg color should match the color at the top
+	of the next row.
+	By specifying background instead of background-color, and placing this below
+	the hover style, we can ensure that only non-"active" tabs change BGs when
+	hovered over. */
+	background: #F4F4E0;
+	color: #000066;
+
+	border: 0.1000em solid #BAB3A1;
+	border-bottom: none;
 }
 
-#tabNavigation ul.row1 li.current:hover span,
-#tabNavigation ul.row1 li.current:hover a,
-#tabNavigation ul.currentSubTabs li.current:hover span,
-#tabNavigation ul.currentSubTabs li.current:hover a,
-#tabNavigation ul.row1 li.currentWithSecondRow:hover span,
-#tabNavigation ul.row1 li.currentWithSecondRow:hover a,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow:hover span, 
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow:hover a { 
-	color:#000066;
-	background:none;
+ul.zTabs.row1 li.currentWithSecondRow a,
+ul.zTabs.row1 li.currentWithSecondRow span,
+ul.zTabs.row1 li.overflowCurrentWithSecondRow a,
+ul.zTabs.row1 li.overflowCurrentWithSecondRow span {
+	/* Row 1 doesn't have parent rows, and Row 3+ are 
+	all the same, so we only need a special bg color for
+	Row 1's tabs (which feed into the top of Row 2).
+	By specifying background instead of background-color, and placing this below
+	the hover style, we can ensure that only non-"active" tabs change BGs when
+	hovered over. */
+	background: #E7E5CB;
 }
 
-#tabNavigation ul.row1 li.overflowCurrent:hover span,
-#tabNavigation ul.row1 li.overflowCurrent:hover a,
-#tabNavigation ul.currentSubTabs li.overflowCurrent:hover span,
-#tabNavigation ul.currentSubTabs li.overflowCurrent:hover a,
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow:hover span,
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow:hover a,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow:hover span, 
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow:hover a { 
-	color:#000066;
-	background:none;
-}
+/*--------------------------------------------
+ * PENDING TABS
+ *--------------------------------------------
 
-#tabNavigation ul.row1 li.loading:hover span,
-#tabNavigation ul.row1 li.loading:hover a,
-#tabNavigation ul.currentSubTabs li.loading:hover span,
-#tabNavigation ul.currentSubTabs li.loading:hover a,
-#tabNavigation ul.row1 li.loadingWithSecondRow:hover span,
-#tabNavigation ul.row1 li.loadingWithSecondRow:hover a,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow:hover span, 
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow:hover a {
-	color:#000066;
-	background:none;
-}
-/* PENDING TABS */
-
-#tabNavigation ul.row1 li.pending a, 
-#tabNavigation ul.currentSubTabs li.pending a {
+Tabs which are currently loading get a class for visual differentiation. */
+ul.zTabs li.pending a {
 	color:#948e7e;
 }
 
-/* CURRENT TABS */
+/*--------------------------------------------
+ * CLOSE BUTTON STYLES
+ *--------------------------------------------*/
 
-/* Current list items : current, loading, overflow  */
-#tabNavigation ul.row1 li.current,
-#tabNavigation ul.currentSubTabs li.current, 
-#tabNavigation ul.row1 li.loading,
-#tabNavigation ul.currentSubTabs li.loading,
-#tabNavigation ul.row1 li.overflowCurrent,
-#tabNavigation ul.currentSubTabs li.overflowCurrent { 
-	background: white;
+ul.zTabs li a.closeTabButton,
+ul.zTabs li span.closeTabButton {
 
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
+	/* The parent LIs are relative, so we can move the button relative to them. 
+	Tabs with buttons will need padding adjustments or the absolutely-positioned
+	buttons will overlap text. See closeTabText below. */
+	position:absolute;
+	left:1.6000em;
+
+	/* The close button doesn't need a background, padding or borders like 
+	normal anchors and spans within tabs */
+	background: none;
+	padding-left: 0;
+	padding-right: 0;
+	border-left: none;
+	border-right: none;
+
+	/* Also turn off rounded corners. */
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
-/* Anchors (and spans) where there's an active tab style */
-#tabNavigation ul.row1 li.current span,
-#tabNavigation ul.row1 li.current a,
-#tabNavigation ul.currentSubTabs li.current span,
-#tabNavigation ul.currentSubTabs li.current a,
-
-#tabNavigation ul.row1 li.overflowCurrent span,
-#tabNavigation ul.row1 li.overflowCurrent a,
-#tabNavigation ul.currentSubTabs li.overflowCurrent span,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a,
-
-#tabNavigation ul.row1 li.loading span,
-#tabNavigation ul.row1 li.loading a,
-#tabNavigation ul.currentSubTabs li.loading span,
-#tabNavigation ul.currentSubTabs li.loading a {
-	/* Anchors should have borders by default */
-	border: 0.1000em solid #BAB3A1;
-	border-bottom: none;
-
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
-}
-
-/* Current list items from the first row, having child rows */
-#tabNavigation ul.row1 li.currentWithSecondRow, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow, 
-#tabNavigation ul.row1 li.loadingWithSecondRow {
-	background: #E7E5CB;
-
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
-}
-
-/* Current list items from all other rows, having child rows */
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow, 
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow, 
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow {
-
-	/* Different background color than the first row */
-	background: #F4F4E0;
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
-}
-
-/* Anchors (and spans) from the first row */
-#tabNavigation ul.row1 li.currentWithSecondRow span, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow span, 
-#tabNavigation ul.row1 li.loadingWithSecondRow span,
-#tabNavigation ul.row1 li.currentWithSecondRow a, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a {
-	border: 0.1000em solid #BAB3A1;
-	border-bottom: none;
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
-}
-
-/* Anchors (and spans) from all other rows */
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow span,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow span,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow span, 
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a {
-	border: 0.1000em solid #BAB3A1;
-	border-bottom: none;
-	-moz-border-radius-topleft: 0.6000em;
-	-moz-border-radius-topright: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	-webkit-border-top-right-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-	border-top-right-radius: 0.6000em;
-}
-
-
-/* Hover styles for anchors and spans which are close buttons */
-#tabNavigation ul.row1 li:hover a.closeTabButton,
-#tabNavigation ul.row1 li:hover span.closeTabButton,
-#tabNavigation ul.currentSubTabs li:hover a.closeTabButton,
-#tabNavigation ul.currentSubTabs li:hover span.closeTabButton {
-	-moz-border-radius-topright: 0;
-	-webkit-border-top-right-radius: 0;
-	border-top-right-radius: 0;
-}
-
-/* Hover styles for anchors and spans which are refresh buttons */
-#tabNavigation ul.row1 li:hover a.refreshTabButton,
-#tabNavigation ul.row1 li:hover span.refreshTabButton,
-#tabNavigation ul.currentSubTabs li:hover a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li:hover span.refreshTabButton {
-
-	/* Refresh buttons generally don't get rounded corners */
-	-moz-border-radius-topright: 0;
-	-webkit-border-top-right-radius: 0;
-	border-top-right-radius: 0;
-	-moz-border-radius-topleft: 0;
-	-webkit-border-top-left-radius: 0;
-	border-top-left-radius: 0;
-}
-
-/* Hover styles for first-child refresh buttons */ 
-#tabNavigation ul.row1 li:hover a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li:hover span.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li:hover a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li:hover span.refreshTabButton:first-child {
-
-	/* If the refresh button is the first button, it DOES get rounded corners */
-	-moz-border-radius-topleft: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-}
-
-/* Hover styles for the text that accompanies a button */
-#tabNavigation ul.row1 li:hover a.closeTabText,
-#tabNavigation ul.row1 li:hover span.closeTabText,
-#tabNavigation ul.currentSubTabs li:hover a.closeTabText,
-#tabNavigation ul.currentSubTabs li:hover span.closeTabText {
-
-	-moz-border-radius-topleft: 0;
-	-webkit-border-top-left-radius: 0;
-	border-top-left-radius: 0;
-}
-
-
-/* Button part of a closeable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.closeTabButton,
-#tabNavigation ul.row1 li.current a.closeTabButton,
-#tabNavigation ul.row1 li.overflowCurrent a.closeTabButton,
-#tabNavigation ul.row1 li.loading a.closeTabButton,
-#tabNavigation ul.row1 li.currentWithSecondRow a.closeTabButton, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.closeTabButton, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.closeTabButton, 
-#tabNavigation ul.currentSubTabs a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.current a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.loading a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.closeTabButton,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.closeTabButton {
-	float:left;
-	padding-right:0.2000em !important;
-	height:2em;
-
-	border-right:0;
-	-moz-border-radius-topright: 0;
-	-webkit-border-top-right-radius: 0;
-	border-top-right-radius: 0;
-}
-
-/* Button part of a refreshable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.refreshTabButton,
-#tabNavigation ul.row1 li.current a.refreshTabButton,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton,
-#tabNavigation ul.row1 li.loading a.refreshTabButton,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton, 
-#tabNavigation ul.currentSubTabs a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton {
-	float:left;
-	padding-right:0.2000em !important;
-	height:2em;
-
-	/* Turn off rounded corners for these, since this goes inside the close button */
-	border-right:0;
-	border-left: 0.1000em solid transparent;
-	-moz-border-radius-topright: 0;
-	-webkit-border-top-right-radius: 0;
-	border-top-right-radius: 0;
-	-moz-border-radius-topleft: 0;
-	-webkit-border-top-left-radius: 0;
-	border-top-left-radius: 0;
-}
-
-/* Button part of a first-child refreshable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.current a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.loading a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.currentSubTabs a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton:first-child {
-
-
-	-moz-border-radius-topleft: 0.6000em;
-	-webkit-border-top-left-radius: 0.6000em;
-	border-top-left-radius: 0.6000em;
-}
-
-#tabNavigation ul.row1 li.current a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.loading a.refreshTabButton:first-child,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton:first-child, 
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton:first-child,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton:first-child {
-	border-left: 0.1000em solid #BAB3A1;
-	border-top: 0.1000em solid #BAB3A1;
-
-}
-
-/* image within the button part of a closeable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.closeTabButton img,
-#tabNavigation ul.row1 li.current a.closeTabButton img,
-#tabNavigation ul.row1 li.overflowCurrent a.closeTabButton img,
-#tabNavigation ul.row1 li.loading a.closeTabButton img,
-#tabNavigation ul.row1 li.currentWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.closeTabButton img, 
-#tabNavigation ul.currentSubTabs a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.current a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.loading a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.closeTabButton img,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.closeTabButton img { 
+ul.zTabs li a.closeTabButton img,
+ul.zTabs li span.closeTabButton img {
 	margin-top:0.5000em
 }
 
-/* image within the button part of a closeable tab (that isn't being hovered over) */
-#tabNavigation ul.row1 a.refreshTabButton img,
-#tabNavigation ul.row1 li.current a.refreshTabButton img,
-#tabNavigation ul.row1 li.overflowCurrent a.refreshTabButton img,
-#tabNavigation ul.row1 li.loading a.refreshTabButton img,
-#tabNavigation ul.row1 li.currentWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.refreshTabButton img, 
-#tabNavigation ul.currentSubTabs a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.current a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.loading a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.refreshTabButton img,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.refreshTabButton img { 
-	margin-top:0.5000em
+ul.zTabs li a.closeTabText,
+ul.zTabs li span.closeTabText {
+	/* Extra padding to make room for the close button */
+	padding-left:2.800em;
 }
 
-/* Non-button part (span or anchor) of a closseable tab (that isn't being hovered over)*/
-#tabNavigation ul.row1 a.closeTabText,
-#tabNavigation ul.row1 span.closeTabText,
-#tabNavigation ul.row1 li.current a.closeTabText,
-#tabNavigation ul.row1 li.overflowCurrent a.closeTabText,
-#tabNavigation ul.row1 li.loading a.closeTabText,
-#tabNavigation ul.row1 li.current span.closeTabText,
-#tabNavigation ul.row1 li.overflowCurrent span.closeTabText,
-#tabNavigation ul.row1 li.loading span.closeTabText,
-#tabNavigation ul.row1 li.currentWithSecondRow a.closeTabText, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.closeTabText, 
-#tabNavigation ul.row1 li.loadingWithSecondRow a.closeTabText, 
-#tabNavigation ul.row1 li.currentWithSecondRow span.closeTabText, 
-#tabNavigation ul.row1 li.overflowCurrentWithSecondRow span.closeTabText, 
-#tabNavigation ul.row1 li.loadingWithSecondRow span.closeTabText, 
-#tabNavigation ul.currentSubTabs a.closeTabText,
-#tabNavigation ul.currentSubTabs span.closeTabText,
-#tabNavigation ul.currentSubTabs li.current a.closeTabText,
-#tabNavigation ul.currentSubTabs li.overflowCurrent a.closeTabText,
-#tabNavigation ul.currentSubTabs li.loading a.closeTabText,
-#tabNavigation ul.currentSubTabs li.current span.closeTabText,
-#tabNavigation ul.currentSubTabs li.overflowCurrent span.closeTabText,
-#tabNavigation ul.currentSubTabs li.loading span.closeTabText,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow a.closeTabText,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.closeTabText,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.closeTabText,
-#tabNavigation ul.currentSubTabs li.currentWithSecondRow span.closeTabText,
-#tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow span.closeTabText,
-#tabNavigation ul.currentSubTabs li.loadingWithSecondRow span.closeTabText {
-	float:left;
-	padding-left:0.2000em !important;
-
-	border-left:0;
-
-	-moz-border-radius-topleft: 0;
-	-webkit-border-top-left-radius: 0;
-	border-top-left-radius: 0;
+/* This is only for IE8, really, and should be in the IE8 style sheet. */
+ul.zTabs li.disableHover a.closeTabButton,
+ul.zTabs li.disableHover span.closeTabButton {
+	display:none;
 }
 
-
-/* popForwardMenu */
-
-#popForwardMenu {
-    position: absolute;
-    left: -6em;
-    top: 14em;
-    background: #b0b0c8 url('../images/menu_shadow.gif') repeat-y left;
-    border: solid 0.1000em #ffcc33;
-	z-index:4;
-}
-
-#popForwardMenu.hover {
-    z-index: 230;
-    background: #b0b0c8;
-}
-
-#popForwardMenu.hover li.selected {
-    list-style-type: none;
-    margin: 0;
-    padding: 0.7500em 1em;
-    color: #000066;
-    background: #ffffff;
-}
-
-#popForwardMenu li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0.7500em 1em;
-}
-
-#popForwardMenu ul {
-    padding: .5em .5em;
-    margin: 0;
-    list-style: none;
-}
-
-#popForwardMenu a {
-    padding: 0.7500em 0em;
-    color: #000066;
-}
-
-/* when 1.3 gets used convert this to a .live binding */
-#popForwardMenu li:hover {
-    color: #000066;
-    padding: 0.7500em 1em;
-    background: #ffcc33;
-}
-
-#popForwardMenu li.selected {
-    list-style-type: none;
-    margin: 0;
-    padding: 0.7500em 1em;
-    color: #000066;
-    background: #ffffff url('../images/menu_shadow_selected.gif') repeat-y left;
-}
-
-/* AJAX indicator */
-
-#ajaxLoading {
-	position: absolute;
-	top: 0;
-	z-index: 200;
-	width: 34em;
-	left:50%;
-	margin-left:-17em; 
-	height:6em;
-	background: url('../images/ajax-loader.gif') no-repeat center center;	
-/*
-*/
-}
-
-/* MessageToUser */
-
-#messageWrapper {
-	position: fixed;
-	top: 0;
-	width: 34em;
-	left:50%;
-	margin-left:-17em; 
-	z-index: 201;
-}
-
-#messageToUser {
-	border-right: 0.1000em solid #645f68;
-	border-bottom: 0.1000em solid #645f68;
-	border-left: 0.1000em solid #645f68;
-	color: #f8981d;
-	width: 100%;
-	background: url('../images/grayScreen.png');
-	text-align: center;
-	overflow: hidden;
-	z-index: 201;
-	margin: auto;
-}
-
-#messageToUser p {
-/* 
-(1 / Parent's Font Size) x required pixel value = em
-(1 / 10px) x 14px = 1.4em
-*/
-	font-size: 1.4em;
-/* (1/14px)*8px = 0.5714 -> 0.6em */
-	margin: 0.6000em 0.6000em 0 0.6000em;
-	
-}
-
-#messageToUserClose {
-	margin-top: 0.8000em;
-	margin-bottom: 0.6000em;
-}
-
-#messageToUserClose a {
-	font-size: 1.1000em;
-	color: #ccc;
-	text-decoration: none;
-}
-
-
-
-/* Body and Below */
-#bodyWrapper {
-	background-color: white;
-	padding-top:1.4000em;
-	padding-bottom:1.4000em;
-	min-height:64em;
-	position:relative;
-    z-index: 20; 
-}
-
-/* Switching to pixels below here */
-
-#mainContent {
-	padding: 10px 20px;
-	padding-top:0;
-	padding-bottom:0;
-    background: #fff;
-    font-family: arial, helvetica;
-    font-size: 12px;
-    font-style: normal;
-    min-height: 640px;
-	clear: both;
-}
-
-
-/* editable tabs */
-/*
-.zTabs input {
-	padding: .51em 1.2em .2em 1em;
-	font-size: 10px;
-	size: 12;
-}
-*/
-
-/* STRIPED TABLES */
-table.striped {
-	color: #000;
-	font-family: arial;
-	font-size: 12px;
-	font-weight: normal;
-	margin: 0px;
-	border: solid 1px #bab3a1; 
-	width: 100%;
-	margin: 12px 0;
-}
-
-table.striped tr.even {
-	background: #e6e6ff;
-	font-size: 12px;
-}
-
-table.striped tr.odd {
-	background: #fff;
-	font-size: 12px;
-}
-
-table.striped td {
-	padding: 4px 6px;
-	/* border-right: solid 1px #bab3a1;
-	border-bottom: solid 1px #bab3a1; */
-	width: auto;
-}
-
-table.striped th {
-	background: #bab3a1;
-	padding: 4px 2px 4px 18px;
-	color: #fff;
-	font-size: 12px;
-	font-weight: normal;
-	text-align: center;
-	white-space: nowrap;
-}
-
-table.striped th a {
-	color: #fff;
-}
-
-table.striped td a {
-	color: #000;
-}
-
-
-/* SPECIFIC TO THIS PROJECT */
-.funcName {
-	font: normal normal bold 1.5em/2.0em Arial, sans-serif;
-	color: #009;
-}
-.option {
-	margin-bottom:5px;
-}
-.optionName {
-	font: normal normal bold 1em/1.5em Arial, sans-serif;
-}
-.subSection {
-	font: normal normal bold 1em/1.5em Arial, sans-serif;
-	text-decoration: underline;
-	margin-top: 12px;
-}
-
-pre.code, 
-code {
-	display:block;
-	margin:14px 24px;
-	line-height:20px;
-}
-
-code .comment,
-code .inlineComment {
-	color:#666666;
-}
-
-code .inlineComment {
-	margin-left:14px;
-}
-
-.functionList td.first,  
-.functionList th.first {
-    width:25%;
-}
-.functionList a {
-	color: #009;
-	font-size: 12px;
-}
-.functionList {
-	color: #000;
-	font-size: 12px;
-}
-.demoList li {
-	margin: 20px;
-}
-
-table.striped th.headerSortUp { 
-    background: #666666 url('../images/asc.gif') no-repeat; 
-}
-
-table.striped th.headerSortDown { 
-    background: #666666 url('../images/desc.gif') no-repeat;
-}
