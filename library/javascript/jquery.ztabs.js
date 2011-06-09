@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.18
+* Version 2.0.19
 * @requires jQuery v1.5 or later
 *
 * roberson@zurka.com
@@ -927,11 +927,16 @@
 				$.when(showTab(tabArray)).then(function() {
 					dfd.resolve();
 				});
-			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {				
+			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {
 				// The current tab has child tabs but none of them are current.  This is probably because the current one was just closed
 				$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li:first').attr('id'))).then(function() {
 					dfd.resolve();
 				});
+			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length == 1) {
+					$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').attr('id'))).then(function() {
+						dfd.resolve();
+					});
+				
 			} else {
 				clickLock = false;
 				updateURL(nextTabId);
@@ -1147,6 +1152,14 @@
 							// currentTab = li;
 							$(getTabSet(nextTabId)).data('currentTab', $nextTabId.get(0));
 
+							// Put the content in the DOM.  This needs to happen before parseTheList is called
+							// so that a list with local content has a chance to hide that content.  It's not ideal.
+							if(contentdivid != '') {
+								$('#'+contentdivid).append(dataContent);
+							} else {
+								$nextTabId.parent().after(dataContent);
+							}
+
 							var rowNum = Number(whichRow($nextTabId.parent())+1);
 							parseTheList($newUL, rowNum);
 
@@ -1158,11 +1171,11 @@
 							loadingTabComplete(nextTabId);
 							clickLock = false;
 
-							if(contentdivid != '') {
-								$('#'+contentdivid).append(dataContent);
-							} else {
-								$nextTabId.parent().after(dataContent);
-							}
+							// if(contentdivid != '') {
+							// 	$('#'+contentdivid).append(dataContent);
+							// } else {
+							// 	$nextTabId.parent().after(dataContent);
+							// }
 
 							// Slide open the tab once everything is finished
 							dfd.then(function() {
