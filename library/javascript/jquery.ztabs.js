@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.19
+* Version 2.0.20
 * @requires jQuery v1.5 or later
 *
 * roberson@zurka.com
@@ -123,8 +123,10 @@
 				$(this).addClass('zTabs').attr('data-ztabsset', zTabsSet).attr('data-ztabsid', zTabsId);
 				zTabsSet++; zTabsId++;
 				for(var key in settings) {
-					if(typeof $(this).data(key) == 'undefined') {
-						$(this).data(key, settings[key]);
+					if(settings.hasOwnProperty(key)) {
+						if(typeof $(this).data(key) == 'undefined') {
+							$(this).data(key, settings[key]);
+						}
 					}
 				}
 				
@@ -583,12 +585,16 @@
 						if($(this).is('ul')) {
 							$(this).find('li').each(function() {
 								for(k in key) {
-									processProperty(this, k, key[k]);
+									if(key.hasOwnProperty(k)) {
+										processProperty(this, k, key[k]);
+									}
 								}
 							});
 						} else if($(this).is('li')) {
 							for(k in key) {
-								processProperty(this, k, key[k]);
+								if(key.hasOwnProperty(k)) {
+									processProperty(this, k, key[k]);
+								}
 							}
 						}
 					});
@@ -689,7 +695,9 @@
 	$.fn.zTabsProperty = function(obj) {
 		var lcKeys = {};
 		for(var key in obj) {
-			lcKeys[key.toLowerCase()] = obj[key]; 
+			if(obj.hasOwnProperty(key)) {
+				lcKeys[key.toLowerCase()] = obj[key];
+			}
 		}
 		return $(this).zTabs('property', lcKeys);
 	};
@@ -1513,23 +1521,23 @@
 		if(localStorage.getItem($(ul).attr('id')) != null) {		
 			var tabIds = JSON.parse(localStorage.getItem($(ul).attr('id')));
 			for(i in tabIds) {	
-				
-				// if(!$('#'+tabIds[i].id).is('li')) {
-				if(!$(cleanId(tabIds[i].id)).is('li')) {
-					// the tab doesn't exist.  It should be added back in
-					if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
-						tabIds[i].data.show = true;
+				if(tabIds.hasOwnProperty(i)) {
+					if(!$(cleanId(tabIds[i].id)).is('li')) {
+						// the tab doesn't exist.  It should be added back in
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+							tabIds[i].data.show = true;
+						} else {
+							tabIds[i].data.show = false;
+						}
+						tabIds[i].data.tabid = tabIds[i].id;
+						tabIds[i].data.position = i;
+						tabsToAdd.push({ul:ul, data: tabIds[i].data});
 					} else {
-						tabIds[i].data.show = false;
-					}
-					tabIds[i].data.tabid = tabIds[i].id;
-					tabIds[i].data.position = i;
-					tabsToAdd.push({ul:ul, data: tabIds[i].data});
-				} else {
-					// the tab does exist, should it be current?
+						// the tab does exist, should it be current?
 					
-					if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
-						var showLater = cleanId(tabIds[i].id);
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+							var showLater = cleanId(tabIds[i].id);
+						}
 					}
 				}
 			}
