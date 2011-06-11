@@ -1673,7 +1673,7 @@
 		
 		if($(tabId).data('closeable')) {
 			$overflowTab.find('span').addClass('closeTabText');
-			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+$(getTabSet()).zTabs('property','imagebaseurl')+'close_tab_button_white.gif"></a> ');
+			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+ settings.closebuttonurl + '"></a> ');
 		}
 		
 		if(!$(tabId).data('refreshable') && !($(tabId).data('closeable'))) {
