@@ -8,6 +8,8 @@
 
 .overflowTab select {
      width: 7.2em;
+     height: 19px;
+     font-size: 90%;
 }
 
 #tabNavigation ul.row1 a.closeTabButton, #tabNavigation ul.row1 li.current a.closeTabButton, #tabNavigation ul.row1 li.overflowCurrent a.closeTabButton, #tabNavigation ul.row1 li.loading a.closeTabButton, #tabNavigation ul.row1 li.currentWithSecondRow a.closeTabButton, #tabNavigation ul.row1 li.overflowCurrentWithSecondRow a.closeTabButton, #tabNavigation ul.row1 li.loadingWithSecondRow a.closeTabButton, #tabNavigation ul.currentSubTabs a.closeTabButton, #tabNavigation ul.currentSubTabs li.current a.closeTabButton, #tabNavigation ul.currentSubTabs li.overflowCurrent a.closeTabButton, #tabNavigation ul.currentSubTabs li.loading a.closeTabButton, #tabNavigation ul.currentSubTabs li.currentWithSecondRow a.closeTabButton, #tabNavigation ul.currentSubTabs li.overflowCurrentWithSecondRow a.closeTabButton, #tabNavigation ul.currentSubTabs li.loadingWithSecondRow a.closeTabButton {
@@ -34,13 +36,16 @@
 #tabNavigation .row1 { 
 	border-bottom: 1px solid #B6B6B6;
 }
-
+#tabNavigation .row1 { 
+	border-bottom: 0 none;
+}
 
 #tabNavigation ul {
      border-width: 0pt;
      margin: 0pt;
      max-width: none;
      padding-left: 10px;
+     zoom: 1; /* yup IE sucks */
 }
 
 #tabNavigation ul:after {
@@ -52,20 +57,21 @@
 }
 
 #tabNavigation li {
-     -moz-border-bottom-colors: none;
-     -moz-border-image: none;
-     -moz-border-left-colors: none;
-     -moz-border-right-colors: none;
-     -moz-border-top-colors: none;
-     border-color: #B6B6B6 #B6B6B6 -moz-use-text-color;
-     border-style: solid solid none;
-     border-top-left-radius: 3px;
-     border-top-right-radius: 3px;
-     border-width: 1px 1px 0pt;
-     float: left;
-     list-style-type: none;
-     margin: 0pt 0.11em 0pt 0pt;
-     white-space: nowrap;
+	background-color: #c6c6c6;
+	-moz-border-bottom-colors: none;
+	-moz-border-image: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: #B6B6B6 #B6B6B6 -moz-use-text-color;
+	border-style: solid solid none;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-width: 1px 1px 0pt;
+	float: left;
+	list-style-type: none;
+	margin: 0pt 0.11em 0pt 0pt;
+	white-space: nowrap;
 }
 
 #tabNavigation li a:link, #tabNavigation li a:visited {
@@ -95,12 +101,21 @@
 }
 
 #tabNavigation li.currentWithSecondRow a, #tabNavigation li.overflowCurrentWithSecondRow a, #tabNavigation li.loadingWithSecondRow a, #tabNavigation li.current a {
-     background-color: #FFFFFF;
+     background-color: #dcdcdc;
      background-image: none;
-     border-bottom: 1px solid #FFFFFF;
+     border-bottom: 1px solid #dcdcdc;
      color: #000000;
      cursor: text;
      margin-bottom: -1px;
+}
+
+#tabNavigation .row2 li {
+	margin-bottom: -1px;
+}
+
+#tabNavigation .row2 li.current a {
+	background-color: #ffffff;
+	border-bottom: 1px solid #ffffff;
 }
 
 #tabNavigation li.current:hover, #tabNavigation li.currentWithSecondRow:hover, #tabNavigation li.overflowCurrentWithSecondRow:hover, #tabNavigation li.loadingWithSecondRow:hover {
@@ -115,6 +130,9 @@
      cursor: pointer;
      outline: medium none;
 }
+#tabNavigation li a:first-child {
+	padding-left: 1em !important;
+}
 
 #bodyWrapper {
      border-color: #B6B6B6;
@@ -122,4 +140,11 @@
      border-width: 0pt 1px 1px;
 }
 
-#tabNavigation a.closeTabButton img { padding-top: .12em; }
+#tabNavigation a.closeTabButton img { 
+	padding-top: .12em; 
+	border: 0 none;
+}
+
+#tabNavigation ul.row1 a.closeTabButton img {
+	margin-top: 0 !important; /* not sure why this is in here but it wreaks havock in IE */ 
+}
