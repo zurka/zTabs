@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.17
+* Version 2.0.20
 * @requires jQuery v1.5 or later
 *
 * roberson@zurka.com
@@ -124,8 +124,10 @@
 				$(this).addClass('zTabs').attr('data-ztabsset', zTabsSet).attr('data-ztabsid', zTabsId);
 				zTabsSet++; zTabsId++;
 				for(var key in settings) {
-					if(typeof $(this).data(key) == 'undefined') {
-						$(this).data(key, settings[key]);
+					if(settings.hasOwnProperty(key)) {
+						if(typeof $(this).data(key) == 'undefined') {
+							$(this).data(key, settings[key]);
+						}
 					}
 				}
 				
@@ -584,12 +586,16 @@
 						if($(this).is('ul')) {
 							$(this).find('li').each(function() {
 								for(k in key) {
-									processProperty(this, k, key[k]);
+									if(key.hasOwnProperty(k)) {
+										processProperty(this, k, key[k]);
+									}
 								}
 							});
 						} else if($(this).is('li')) {
 							for(k in key) {
-								processProperty(this, k, key[k]);
+								if(key.hasOwnProperty(k)) {
+									processProperty(this, k, key[k]);
+								}
 							}
 						}
 					});
@@ -690,7 +696,9 @@
 	$.fn.zTabsProperty = function(obj) {
 		var lcKeys = {};
 		for(var key in obj) {
-			lcKeys[key.toLowerCase()] = obj[key]; 
+			if(obj.hasOwnProperty(key)) {
+				lcKeys[key.toLowerCase()] = obj[key];
+			}
 		}
 		return $(this).zTabs('property', lcKeys);
 	};
@@ -928,11 +936,16 @@
 				$.when(showTab(tabArray)).then(function() {
 					dfd.resolve();
 				});
-			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {				
+			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {
 				// The current tab has child tabs but none of them are current.  This is probably because the current one was just closed
 				$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li:first').attr('id'))).then(function() {
 					dfd.resolve();
 				});
+			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length == 1) {
+					$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').attr('id'))).then(function() {
+						dfd.resolve();
+					});
+				
 			} else {
 				clickLock = false;
 				updateURL(nextTabId);
@@ -1003,7 +1016,7 @@
 						});
 						// return dfd.promise();
 					}
-				} else {
+				} else {					
 					// label the content div
 					if(typeof $(contenturl).attr('data-ztabid') == 'undefined') {
 						$(contenturl).attr('data-ztabid', $nextTabId.data('ztabid')+'_content');
@@ -1148,6 +1161,14 @@
 							// currentTab = li;
 							$(getTabSet(nextTabId)).data('currentTab', $nextTabId.get(0));
 
+							// Put the content in the DOM.  This needs to happen before parseTheList is called
+							// so that a list with local content has a chance to hide that content.  It's not ideal.
+							if(contentdivid != '') {
+								$('#'+contentdivid).append(dataContent);
+							} else {
+								$nextTabId.parent().after(dataContent);
+							}
+
 							var rowNum = Number(whichRow($nextTabId.parent())+1);
 							parseTheList($newUL, rowNum);
 
@@ -1159,23 +1180,29 @@
 							loadingTabComplete(nextTabId);
 							clickLock = false;
 
+							// if(contentdivid != '') {
+							// 	$('#'+contentdivid).append(dataContent);
+							// } else {
+							// 	$nextTabId.parent().after(dataContent);
+							// }
+
 							// Slide open the tab once everything is finished
 							dfd.then(function() {
 								if($.browser.msie && $.browser.version.substr(0,1) < 8) {
 									// ie6/7 are too slow for the sliding
 									$newUL.css({display:''});
-									if(contentdivid != '') {
-										$('#'+contentdivid).append(dataContent);
-									} else {
-										$nextTabId.parent().after(dataContent);
-									}
+									// if(contentdivid != '') {
+									// 	$('#'+contentdivid).append(dataContent);
+									// } else {
+									// 	$nextTabId.parent().after(dataContent);
+									// }
 								} else {
 									$newUL.slideDown('fast', function() {
-										if(contentdivid != '') {
-											$('#'+contentdivid).append(dataContent);
-										} else {
-											$nextTabId.parent().after(dataContent);
-										}
+										// if(contentdivid != '') {
+										// 	$('#'+contentdivid).append(dataContent);
+										// } else {
+										// 	$nextTabId.parent().after(dataContent);
+										// }
 										$(this).css('display', '');
 									});
 								}
@@ -1495,23 +1522,23 @@
 		if(localStorage.getItem($(ul).attr('id')) != null) {		
 			var tabIds = JSON.parse(localStorage.getItem($(ul).attr('id')));
 			for(i in tabIds) {	
-				
-				// if(!$('#'+tabIds[i].id).is('li')) {
-				if(!$(cleanId(tabIds[i].id)).is('li')) {
-					// the tab doesn't exist.  It should be added back in
-					if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
-						tabIds[i].data.show = true;
+				if(tabIds.hasOwnProperty(i)) {
+					if(!$(cleanId(tabIds[i].id)).is('li')) {
+						// the tab doesn't exist.  It should be added back in
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+							tabIds[i].data.show = true;
+						} else {
+							tabIds[i].data.show = false;
+						}
+						tabIds[i].data.tabid = tabIds[i].id;
+						tabIds[i].data.position = i;
+						tabsToAdd.push({ul:ul, data: tabIds[i].data});
 					} else {
-						tabIds[i].data.show = false;
-					}
-					tabIds[i].data.tabid = tabIds[i].id;
-					tabIds[i].data.position = i;
-					tabsToAdd.push({ul:ul, data: tabIds[i].data});
-				} else {
-					// the tab does exist, should it be current?
+						// the tab does exist, should it be current?
 					
-					if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
-						var showLater = cleanId(tabIds[i].id);
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+							var showLater = cleanId(tabIds[i].id);
+						}
 					}
 				}
 			}
