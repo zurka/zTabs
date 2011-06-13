@@ -28,6 +28,10 @@ ul.row2 {
 	background: none;
 }
 
+#header, #header a { 
+	color: #b3b3b3; /* set the header font color to black-ish */ 
+}
+
 /*--------------------------------------------
  * BODY
  *--------------------------------------------
@@ -61,7 +65,7 @@ tabs it can show at once. */
 
 /* Normal pageWrapper */
 #pageWrapper {
-	width: 90%;
+	width: 972px; /* 950 width + (10*2) padding-left and right + 2 border-left and right -*/	
 }
 
 /* pageWrapper which spans the entire width of a browser window */
@@ -118,9 +122,9 @@ ul.zTabs {
 	float:left;
 
 	/* By floating the UL, it collapses around its content, which in this case
-	is floated LIs. So we have to use width 100% and set the height if we 
+	is floated LIs. So we have to use width 950px and set the height if we 
 	want our ULs to not collapse.*/
-	width:100%;
+	width:950px;
 	height: 2.4em;
 
 	/* Purely cosmetic styles. */
@@ -128,6 +132,7 @@ ul.zTabs {
 
 	/* This puts some space between the edges and the tabs. */
 	padding-left:10px;	
+	padding-right:10px;
 	padding-top: 0.7000em;
 
 	/* Fixes an IE9 problem, where row1 tabs hang down on top of the next row */
@@ -212,6 +217,9 @@ ul.zTabs li {
 	list-style-type: none;
 	white-space: nowrap;
 	
+	/* Overlaps the current tab with its connected pannel */
+	margin-top: 1px;
+	
 	
 }
 
@@ -285,14 +293,12 @@ ul.zTabs li:hover a,
 ul.zTabs li:hover span {
 	cursor:pointer;
 	color: #313131;
-	background: none;
 }
 
 /* There are a few cases where a tab should have its hover styles turned off */
 ul.zTabs li.disableHover:hover a,
 ul.zTabs li.disableHover:hover span {
 	color: #000066;
-	background: none;
 }
 
 /*--------------------------------------------
@@ -350,9 +356,14 @@ ul.zTabs li.loadingWithSecondRow:hover {
 	
 	/* join the burrent tab to the current tab pannel */ 
 	border-bottom: 1px solid #FFFFFF;	
+	
+	cursor: text;
 }
 
-
+ul.zTabs li:hover {
+	/* on hover show subtle outline of hovered tab */
+	border-color: #767676;
+}
 
 /*--------------------------------------------
  * CURRENT TAB (WITH SUBROWS)
@@ -441,7 +452,7 @@ ul.zTabs li span.closeTabButton img {
 ul.zTabs li a.closeTabText,
 ul.zTabs li span.closeTabText {
 	/* Extra padding to make room for the close button */
-	padding-left:2.000em;
+	padding-left:1.65em;
 }
 
 /* This is only for IE8, really, and should be in the IE8 style sheet. */
@@ -459,4 +470,6 @@ ul.zTabs li.disableHover span.closeTabButton {
     border-right: 1px solid #B3B3B3;
     border-style: none solid solid;
     border-width: 0 1px 1px;
+    width:  950px;
+    padding: 10px;
 }
