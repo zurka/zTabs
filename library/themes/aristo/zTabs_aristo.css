@@ -368,7 +368,6 @@ ul.zTabs li:hover {
 /*--------------------------------------------
  * CURRENT TAB (WITH SUBROWS)
  *--------------------------------------------*/
-
 ul.zTabs li.currentWithSecondRow a,
 ul.zTabs li.currentWithSecondRow span,
 ul.zTabs li.overflowCurrentWithSecondRow a,
@@ -388,8 +387,8 @@ ul.zTabs li.overflowCurrentWithSecondRow span {
 	margin-bottom: -1px;	
 }
 
-ul.zTabs.row1 li.currentWithSecondRow a,
-ul.zTabs.row1 li.currentWithSecondRow span,
+ul.zTabs li.currentWithSecondRow a,
+ul.zTabs li.currentWithSecondRow span,
 ul.zTabs.row1 li.overflowCurrentWithSecondRow a,
 ul.zTabs.row1 li.overflowCurrentWithSecondRow span {
 	/* Row 1 doesn't have parent rows, and Row 3+ are 
@@ -433,6 +432,7 @@ ul.zTabs li span.closeTabButton {
 	padding: 0.23em;
     padding-bottom: 0.1em; 
     padding-top: 0.47em;
+    *padding-top: 0em;
 	border-left: none;
 	border-right: none;
 
