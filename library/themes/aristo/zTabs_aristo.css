@@ -160,12 +160,25 @@ ul.row1 {
 } 
 ul.row2,
 ul.row3 {
-     background-color: #DCDCDC;
-     border-left: 1px solid #B6B6B6;
-     border-right: 1px solid #B6B6B6;
-     background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0pt 0pt transparent;
-     border-bottom: 0.1em solid #B6B6B6;
-     border-top: 0 none;
+	background-color: #DCDCDC;
+	border-left: 1px solid #B6B6B6;
+	border-right: 1px solid #B6B6B6;
+	
+	/* Firefox 3.6+ */
+	background-image: -moz-linear-gradient(#ffffff, #ededed);
+	
+	/* Safari 4+, Chrome 1+ */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#ededed));
+	
+	/* Safari 5.1+, Chrome 10+ */
+	background-image: -webkit-linear-gradient(#ffffff, #ededed); 
+	
+	/* Opera 11.10+ */
+	background-image: -o-linear-gradient(#ffffff, #ededed);
+	
+		
+	border-bottom: 0.1em solid #B6B6B6;
+	border-top: 0 none;
 }  
 ul.row4, 
 ul.row5 { /* Not currently being used */ }
@@ -208,7 +221,7 @@ ul.zTabs li {
 	-moz-border-left-colors: none;
 	-moz-border-right-colors: none;
 	-moz-border-top-colors: none;
-	border-color: #B6B6B6 #B6B6B6 -moz-use-text-color;
+	border-color: #B6B6B6 #B6B6B6 #B6B6B6;
 	border-style: solid solid none;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
@@ -261,7 +274,20 @@ ul.zTabs span {
 	as little trouble as possible (i.e. elements which aren't usually parents) */
 	font-size:1.8000em;	
 	
-	background: -moz-linear-gradient(center top , #EDEDED, #C4C4C4) repeat scroll 0pt 0pt transparent;
+
+	/* Firefox 3.6+ */
+	background-image: -moz-linear-gradient(#ededed, #c4c4c4);
+	
+	/* Safari 4+, Chrome 1+ */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ededed), to(#c4c4c4));
+	
+	/* Safari 5.1+, Chrome 10+ */
+	background-image: -webkit-linear-gradient(#ededed, #c4c4c4); 
+	
+	/* Opera 11.10+ */
+	background-image: -o-linear-gradient(#ededed, #c4c4c4);	
+	
+	
 	box-shadow: 0pt 1px 0pt rgba(255, 255, 255, 0.6) inset;
 	font-size: 0.9em;
 	font-weight: bold;
@@ -466,10 +492,22 @@ ul.zTabs li.disableHover span.closeTabButton {
  *--------------------------------------------*/
 
 .currentTabContent {
-    border-color: -moz-use-text-color #B3B3B3 #B3B3B3;
+    border-color: #B3B3B3 #B3B3B3 #B3B3B3;
     border-right: 1px solid #B3B3B3;
     border-style: none solid solid;
     border-width: 0 1px 1px;
     width:  950px;
     padding: 10px;
 }
+
+
+/*--------------------------------------------
+ * AJAX LOADER
+ *--------------------------------------------*/
+ #ajaxLoading {
+	background: url("images/ajax-loader.gif") no-repeat scroll center center transparent;
+	-moz-border-radius: 6px;
+	margin-top: 30px;
+	background-color: #000000;
+    opacity: 0.5;
+ }
