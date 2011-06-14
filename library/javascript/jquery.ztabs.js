@@ -15,7 +15,7 @@
 		contentdivid: false,
 		imagebaseurl: 'library/images/',
 		closebutton: false,
-		closebuttonurl: 'library/themes/aristo/images/close_tab_button_aristo.png',
+		closebuttonurl: 'library/images/close_tab_button.gif',
 		fromanchor: 'a.zTab, button.zTab, input[type="button"].zTab',
 		replace: 'a.zReplace',
 		formreplace: 'form.zReplace',
