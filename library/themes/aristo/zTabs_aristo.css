@@ -155,7 +155,6 @@ ul.currentSubTabs {
 /* These styles affect specific rows. zTabs will make as many rows as it needs to,
 assigning each one a class which can be styled independently. */
 ul.row1 {
-	border-bottom: 0 none;
 	border-bottom: 0.1em solid #B6B6B6;
 } 
 ul.row2,
@@ -164,6 +163,9 @@ ul.row3 {
 	border-left: 1px solid #B6B6B6;
 	border-right: 1px solid #B6B6B6;
 	
+	/* IE 6-7-8-9 seriously */
+	background: url("images/bg_ie_menu_gradient.png") repeat-x scroll center bottom transparent;
+		
 	/* Firefox 3.6+ */
 	background-image: -moz-linear-gradient(#ffffff, #ededed);
 	
@@ -274,7 +276,9 @@ ul.zTabs span {
 	as little trouble as possible (i.e. elements which aren't usually parents) */
 	font-size:1.8000em;	
 	
-
+	/* IE 6-7-8-9 seriously */
+	background: url("images/bg_ie_tab_gradient.png") repeat-x scroll center bottom transparent;
+	
 	/* Firefox 3.6+ */
 	background-image: -moz-linear-gradient(#ededed, #c4c4c4);
 	
@@ -394,6 +398,11 @@ ul.zTabs li:hover {
 /*--------------------------------------------
  * CURRENT TAB (WITH SUBROWS)
  *--------------------------------------------*/
+ul.zTabs li.currentWithSecondRow {
+	/* join the burrent tab to the current tab pannel */ 
+	border-bottom: 1px solid #FFFFFF;
+}
+
 ul.zTabs li.currentWithSecondRow a,
 ul.zTabs li.currentWithSecondRow span,
 ul.zTabs li.overflowCurrentWithSecondRow a,
@@ -404,30 +413,16 @@ ul.zTabs li.overflowCurrentWithSecondRow span {
 	the hover style, we can ensure that only non-"active" tabs change BGs when
 	hovered over. */
 	background-color: #ffffff;
-	*background-color: #dcdcdc; /* for IE use gray as gradients (white to grey) are not supported */
 	background-image: none;
 	border: none;
-	*border-bottom: 1px solid #dcdcdc; /* IE needs the extra border */ 
 	color: #000000;
 	cursor: text;
 	margin-bottom: -1px;	
-}
-
-ul.zTabs li.currentWithSecondRow a,
-ul.zTabs li.currentWithSecondRow span,
-ul.zTabs.row1 li.overflowCurrentWithSecondRow a,
-ul.zTabs.row1 li.overflowCurrentWithSecondRow span {
-	/* Row 1 doesn't have parent rows, and Row 3+ are 
-	all the same, so we only need a special bg color for
-	Row 1's tabs (which feed into the top of Row 2).
-	By specifying background instead of background-color, and placing this below
-	the hover style, we can ensure that only non-"active" tabs change BGs when
-	hovered over. */
-	background: #ffffff;
 	
 	/* join the burrent tab to the current tab pannel */ 
 	border-bottom: 1px solid #FFFFFF;
 }
+
 
 
 /*--------------------------------------------
