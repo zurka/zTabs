@@ -14,14 +14,13 @@
 		subrowsdivid: false,
 		contentdivid: false,
 		imagebaseurl: 'library/images/',
-		closebutton: false,
-		closebuttonurl: 'library/images/close_tab_button.gif',
+		closebuttonfile: 'close_tab_button.gif',
+		refreshbuttonfile: 'refresh_button.png',
 		fromanchor: 'a.zTab, button.zTab, input[type="button"].zTab',
 		replace: 'a.zReplace',
 		formreplace: 'form.zReplace',
 		formresults: '.zResults',
 		localstorage: true,
-		refreshbutton: false,
 		rowchange: false,
 		initialized: false,
 		
@@ -50,6 +49,7 @@
 	// lock out the other tabs when one is loading
 	var clickLock = false;
 	var iFrameLock = false;  // IE iFrame based history
+	var closebutton, refreshbutton;
 
 	// Browsers shouldn't do the caching for us
 	$.ajaxSetup({
@@ -82,12 +82,8 @@
 					}
 				}
 	
-				if (!settings.closebutton) {
-					settings.closebutton = '<img src="'+settings.closebuttonurl+'">';
-				}
-				if (!settings.refreshbutton) {
-					settings.refreshbutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'refresh_button.png">';
-				}
+				closebutton = '<img src="'+settings.imagebaseurl+settings.closebuttonfile+'">';
+				refreshbutton = '<img src="'+settings.imagebaseurl+settings.refreshbuttonfile+'">';
 
 				// set up anchor tabs with class zTab to be a tab
 				$(settings.fromanchor).live('click', function(event) {
@@ -816,7 +812,7 @@
 		var $li = $(li);
 		if($li.data('refreshable') && !$li.find('.refreshTabButton').is('a')) {
 			$li.find('a:last').addClass('closeTabText');
-			$li.prepend('<a class="refreshTabButton" onclick="$(this).parent().zTabs(\'refresh\');return false;" href="#">'+settings.refreshbutton+'</a>');
+			$li.prepend('<a class="refreshTabButton" onclick="$(this).parent().zTabs(\'refresh\');return false;" href="#">'+refreshbutton+'</a>');
 		} else if(!$li.data('refreshable') && !$li.data('closeable')) {
 			$li.find('a:last').removeClass('closeTabText');
 		}
@@ -826,7 +822,7 @@
 		var $li = $(li);
 		if($li.data('closeable') && !$li.find('.closeTabButton').is('a')) {
 			$li.find('a:last').addClass('closeTabText');
-			$li.prepend('<a class="closeTabButton" onclick="$(this).parent().zTabs(\'close\');return false;" href="#">'+settings.closebutton+'</a>');
+			$li.prepend('<a class="closeTabButton" onclick="$(this).parent().zTabs(\'close\');return false;" href="#">'+closebutton+'</a>');
 		} else if(!$li.data('refreshable') && !$li.data('closeable')) {
 			$li.find('a:last').removeClass('closeTabText');
 		}
@@ -1700,7 +1696,7 @@
 		
 		if($(tabId).data('closeable')) {
 			$overflowTab.find('span').addClass('closeTabText');
-			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+ settings.closebuttonurl + '"></a> ');
+			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+closebutton+'"></a> ');
 		}
 		
 		if(!$(tabId).data('refreshable') && !($(tabId).data('closeable'))) {
