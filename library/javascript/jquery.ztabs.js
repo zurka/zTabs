@@ -15,6 +15,7 @@
 		contentdivid: false,
 		imagebaseurl: 'library/images/',
 		closebutton: false,
+		closebuttonurl: 'library/images/close_tab_button.gif',
 		fromanchor: 'a.zTab, button.zTab, input[type="button"].zTab',
 		replace: 'a.zReplace',
 		formreplace: 'form.zReplace',
@@ -82,7 +83,7 @@
 				}
 	
 				if (!settings.closebutton) {
-					settings.closebutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'close_tab_button_white.gif">';
+					settings.closebutton = '<img src="'+settings.closebuttonurl+'">';
 				}
 				if (!settings.refreshbutton) {
 					settings.refreshbutton = '<img width="11" height="11" border="0" src="'+settings.imagebaseurl+'refresh_button.png">';
@@ -1699,7 +1700,7 @@
 		
 		if($(tabId).data('closeable')) {
 			$overflowTab.find('span').addClass('closeTabText');
-			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+$(getTabSet()).zTabs('property','imagebaseurl')+'close_tab_button_white.gif"></a> ');
+			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+ settings.closebuttonurl + '"></a> ');
 		}
 		
 		if(!$(tabId).data('refreshable') && !($(tabId).data('closeable'))) {

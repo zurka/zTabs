@@ -1,0 +1,269 @@
+html {
+     font-size: 100%;
+     height: 100%;
+}
+
+body {
+     background: none repeat scroll 0pt 0pt #666666;
+     font-family: Arial,"MS Trebuchet",sans-serif;
+     font-size: 13px;
+     margin: 0pt;
+     padding: 0pt;
+     text-align: center;
+}
+
+#pageWrapper {
+     margin: auto;
+     min-height: 100%;
+     position: relative;
+     text-align: left;
+     width: 950px;
+}
+
+#header {
+     min-height: 5.5em;
+}
+
+#header, #header a {
+     color: #DDDDDD;
+}
+
+#logo {
+     background: url("../../images/generic_logo.png") no-repeat scroll center bottom transparent;
+     height: 5.7em;
+     left: 0pt;
+     position: absolute;
+     top: -0.9em;
+     width: 9em;
+}
+
+#header #titleBlock {
+     float: left;
+     margin-left: 9em;
+     padding-top: 1em;
+     position: relative;
+}
+
+#header #titleBlock .title {
+     font-size: 2.2em;
+     padding-right: 1em;
+}
+
+#header #titleBlock .subTitle {
+     font-size: 1.1em;
+}
+
+#header #userBlock {
+     float: right;
+     padding-right: 1.2em;
+     padding-top: 1.1em;
+     position: relative;
+     text-align: right;
+}
+
+#header #userBlock .username {
+     font-size: 1.65em;
+}
+
+#header #userBlock .loginout {
+     font-size: 1.1em;
+}
+
+
+#popForwardMenu {
+     background: url("../../images/menu_shadow.gif") repeat-y scroll left center #B0B0C8;
+     border: 0.1em solid #FFCC33;
+     left: -6em;
+     position: absolute;
+     top: 14em;
+     z-index: 4;
+}
+
+#popForwardMenu.hover {
+     background: none repeat scroll 0pt 0pt #B0B0C8;
+     z-index: 230;
+}
+
+#popForwardMenu.hover li.selected {
+     background: none repeat scroll 0pt 0pt #FFFFFF;
+     color: #000066;
+     list-style-type: none;
+     margin: 0pt;
+     padding: 0.75em 1em;
+}
+
+#popForwardMenu li {
+     list-style-type: none;
+     margin: 0pt;
+     padding: 0.75em 1em;
+}
+
+#popForwardMenu ul {
+     list-style: none outside none;
+     margin: 0pt;
+     padding: 0.5em;
+}
+
+#popForwardMenu a {
+     color: #000066;
+     padding: 0.75em 0pt;
+}
+
+#popForwardMenu li:hover {
+     background: none repeat scroll 0pt 0pt #FFCC33;
+     color: #000066;
+     padding: 0.75em 1em;
+}
+
+#popForwardMenu li.selected {
+     background: url("../images/menu_shadow_selected.gif") repeat-y scroll left center #FFFFFF;
+     color: #000066;
+     list-style-type: none;
+     margin: 0pt;
+     padding: 0.75em 1em;
+}
+
+#ajaxLoading {
+     background: url("../../images/ajax-loader.gif") no-repeat scroll center center transparent;
+     height: 6em;
+     left: 50%;
+     margin-left: -17em;
+     position: absolute;
+     top: 0pt;
+     width: 34em;
+     z-index: 200;
+}
+
+#messageWrapper {
+     left: 50%;
+     margin-left: -17em;
+     position: fixed;
+     top: 0pt;
+     width: 34em;
+     z-index: 201;
+}
+
+#messageToUser {
+     background: url("../../images/grayScreen.png") repeat scroll 0pt 0pt transparent;
+     border-bottom: 0.1em solid #645F68;
+     border-left: 0.1em solid #645F68;
+     border-right: 0.1em solid #645F68;
+     color: #F8981D;
+     margin: auto;
+     overflow: hidden;
+     text-align: center;
+     width: 100%;
+     z-index: 201;
+}
+
+#messageToUser p {
+     font-size: 1.4em;
+     margin: 0.6em 0.6em 0pt;
+}
+
+#messageToUserClose {
+     margin-bottom: 0.6em;
+     margin-top: 0.8em;
+}
+
+#messageToUserClose a {
+     color: #CCCCCC;
+     font-size: 1.1em;
+     text-decoration: none;
+}
+
+#mainContent {
+     background: none repeat scroll 0% 0% #FFFFFF;
+}
+
+table.striped {
+     border: 1px solid #BAB3A1;
+     color: #000000;
+     font-family: arial;
+     font-size: 12px;
+     font-weight: normal;
+     margin: 12px 0pt;
+     width: 100%;
+}
+
+table.striped tr.even {
+     background: none repeat scroll 0pt 0pt #E6E6FF;
+     font-size: 12px;
+}
+
+table.striped tr.odd {
+     background: none repeat scroll 0pt 0pt #FFFFFF;
+     font-size: 12px;
+}
+
+table.striped td {
+     padding: 4px 6px;
+     width: auto;
+}
+
+table.striped th {
+     background: none repeat scroll 0pt 0pt #BAB3A1;
+     color: #FFFFFF;
+     font-size: 12px;
+     font-weight: normal;
+     padding: 4px 2px 4px 18px;
+     text-align: center;
+     white-space: nowrap;
+}
+
+table.striped th a {
+     color: #FFFFFF;
+}
+
+table.striped td a {
+     color: #000000;
+}
+
+.funcName {
+     color: #000099;
+     font: bold 1.5em/2em Arial,sans-serif;
+}
+
+.option {
+     margin-bottom: 5px;
+}
+
+.optionName {
+     font: bold 1em/1.5em Arial,sans-serif;
+}
+
+.subSection {
+     font: bold 1em/1.5em Arial,sans-serif;
+     margin-top: 12px;
+     text-decoration: underline;
+}
+
+pre.code, code {
+     display: block;
+     line-height: 20px;
+     margin: 14px 24px;
+}
+
+code .comment, code .inlineComment {
+     color: #666666;
+}
+
+code .inlineComment {
+     margin-left: 14px;
+}
+
+.functionList td.first, .functionList th.first {
+     width: 25%;
+}
+
+.hiddenTabContent, .currentTabContent {
+     padding: 2em;
+}
+
+table.striped th.headerSortUp {
+     background: url("../images/asc.gif") no-repeat scroll 0pt 0pt #666666;
+}
+
+table.striped th.headerSortDown {
+     background: url("../images/desc.gif") no-repeat scroll 0pt 0pt #666666;
+}
