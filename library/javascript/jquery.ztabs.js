@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.22
+* Version 2.0.26
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -135,7 +135,7 @@
 				// Local assignments override parameters in the set up.
 				parseTheList(this, 1);
 
-				$(this).children('li').each(function() {
+				$(this).children('li:not(.zIgnore)').each(function() {
 					// set the click, doubleClick and close button
 					setUpTab(this);
 				});
@@ -153,9 +153,10 @@
 						} else {
 							var ul = $(that).zTabs('current').parent();
 						}
-						rebuildList(ul);
-						archiveList(ul);
-						initialized();
+						$.when(rebuildList(ul)).then(function() {
+							archiveList(ul);
+							initialized();
+						});
 					}).fail(function() {
 						alert('Error: init 1');
 					});
@@ -163,9 +164,10 @@
 					if($(this).find('li.current, li.currentWithSecondRow').length == 1) {
 						$.when(showTab($(this).find('li.current, li.currentWithSecondRow').attr('id'))).then(function() {
 							var ul = $(that).zTabs('current').parent();
-							rebuildList(that);
-							archiveList(that);
-							initialized();
+							$.when(rebuildList(ul)).then(function() {
+								archiveList(ul);
+								initialized();
+							});
 						}).fail(function() {
 							alert('Error: init 2');
 						});
@@ -176,11 +178,12 @@
 							} else {
 								var ul = $(that).zTabs('current').parent();
 							}
-							rebuildList(ul);
-							archiveList(ul);
-							initialized();
+							$.when(rebuildList(ul)).then(function() {
+								archiveList(ul);
+								initialized();
+							});
 						}).fail(function() {
-							alert('Error: init 1');
+							alert('Error: init 3');
 						});
 					}
 				}
@@ -673,6 +676,7 @@
 						archiveList($(that).parent());
 						dfd.resolve();
 					}).fail(function() {
+						
 						var goBackToThisTab = $(getTabSet()).zTabs('current');
 						// Set the currentTab to the one we tried to go to, just so we can jump back
 						// Otherwise zTabs thinks we already on the tab we are trying to do to
@@ -758,8 +762,7 @@
 		}
 	
 		// Add the settings here then override any with local content
-		$(obj).children('li').each(function() {
-
+		$(obj).children('li:not(.zIgnore)').each(function() {
 			// suck up any info we need for this li
 			if(typeof $(this).data('contenturl') == 'undefined') {
 				$(this).data('contenturl', $(this).find('a').attr('href'));
@@ -815,7 +818,7 @@
 					var rowNum = Number(whichRow($(this).parent())+1);
 					parseTheList($($(this).data('contenturl')), rowNum);
 					
-					$($(this).data('contenturl')).children('li').each(function() {
+					$($(this).data('contenturl')).children('li:not(.zIgnore)').each(function() {
 						// set the click, doubleClick and close button
 						setUpTab(this);
 					});
@@ -1026,10 +1029,10 @@
 
 					$(getTabSet(nextTabId)).data('currentTab', $nextTabId.get(0));
 					// parse the list the first time it needs to be rendered
-					if(typeof $(contenturl).children('li').data('ztabid') == 'undefined') {
+					if(typeof $(contenturl).children('li:not(.zIgnore)').data('ztabid') == 'undefined') {
 						var rowNum = Number(whichRow($nextTabId.parent())+1);
 						parseTheList($(contenturl), rowNum);
-						$(contenturl).children('li').each(function() {
+						$(contenturl).children('li:not(.zIgnore)').each(function() {
 							// set the click, doubleClick and close button
 							setUpTab(this);
 						});
@@ -1233,7 +1236,7 @@
 							var rowNum = Number(whichRow($nextTabId.parent())+1);
 							parseTheList($newUL, rowNum);
 
-							$newUL.children('li').each(function() {
+							$newUL.children('li:not(.zIgnore)').each(function() {
 								// set the click, doubleClick and close button
 								setUpTab(this);
 							});					
@@ -1365,7 +1368,8 @@
 			// go get it via ajax
 			$.when($.get(contenturl)).then(function(data) {
 				dfd.resolve(data);
-			}).fail(function() {
+			}).fail(function(jqXHR, textStatus, errorThrown) {
+				alert(textStatus+": "+errorThrown);			
 				dfd.reject();
 			});
 		}
@@ -1670,6 +1674,8 @@
 
 	// Check to see if the tabs in a given ul are overflowing
 	function tabOverflow(ulId) {
+		// alert('tabOverflow');
+		
 		// find all the tabs that are going to be in the overflow, if any
 		var overflowTabs = [];
 		var i = 0;
@@ -1684,23 +1690,25 @@
 		});
 		
 		var ieHeightProblem = false;
-		if(heights.length > 0) {
-			// compare heights
-			var totalHeight = 0;
-			for(var i=0; i<heights.length; i++) {
-				totalHeight = totalHeight + heights[i];
-			}
-			var avgHeight = totalHeight/heights.length;
-			
-			for(var i=0; i<heights.length; i++) {
-				if(heights[i] > avgHeight) {
-					ieHeightProblem = true;
+		if($.browser.msie) {
+			if(heights.length > 0) {
+				// compare heights
+				var totalHeight = 0;
+				for(var i=0; i<heights.length; i++) {
+					totalHeight = totalHeight + heights[i];
 				}
+				var avgHeight = totalHeight/heights.length;
+			
+				for(var i=0; i<heights.length; i++) {
+					if(heights[i] > avgHeight) {
+						ieHeightProblem = true;
+					}
+				}
+			} else {
+				return;
 			}
-		} else {
-			return;
 		}
-				
+						
 		if(liWidth > ulWidth || ieHeightProblem) {
 			var total = 172; // the overflow tab width
 			$('#'+ulId).find('li:not(.overflowTab)').each(function() {
@@ -1724,8 +1732,6 @@
 			});
 		}		
 		
-
-
 		var html = '';
 		html += '<span><select>';
 		for(var i=0; i<overflowTabs.length; i++) {
