@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.26
+* Version 2.0.30
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -27,6 +27,7 @@
 		localstorage: true,
 		rowchange: false,
 		initialized: false,
+		taboverflow: true,
 		
 		cache: true,
 		closeable: false,
@@ -49,6 +50,7 @@
 	var zTabsSet = 0;
 	var zTabsId = 0;
 	var recentTabId = '';
+	var readyDfd = $.Deferred();
 	
 	// lock out the other tabs when one is loading
 	var clickLock = false;
@@ -643,6 +645,9 @@
 				});
 			}
 		},
+		ready: function(id) {
+			return readyDfd.promise();
+		},
 		refresh: function() {
 			// returns a deffered object
 			var dfd = $.Deferred();
@@ -651,12 +656,17 @@
 				var li = this; // for use inside the get
 				// if contenturl doesn't start with #, ajax for the content
 				if($(this).data('contenturl').substr(0,1) != '#') {
-					$.get($(this).data('contenturl')).success(function(data) {
-						$("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").html(data);
-						dfd.resolve();
-					}).fail(function() {
+					// check to see that content exists.  if not, don't refresh something that's never been loaded
+					if($("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").length > 0) {
+						$.get($(this).data('contenturl')).success(function(data) {
+							$("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").html(data);
+							dfd.resolve();
+						}).fail(function() {
+							dfd.reject();
+						});
+					} else {
 						dfd.reject();
-					});
+					}
 				}
 			});
 			return dfd.promise();
@@ -1674,6 +1684,9 @@
 
 	// Check to see if the tabs in a given ul are overflowing
 	function tabOverflow(ulId) {
+		if(settings.taboverflow == false) {
+			return;
+		}
 		// alert('tabOverflow');
 		
 		// find all the tabs that are going to be in the overflow, if any
@@ -1784,7 +1797,7 @@
 		
 		if($(tabId).data('closeable')) {
 			$overflowTab.find('span').addClass('closeTabText');
-			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton"><img border="0" width="11" height="11" src="'+closebutton+'"></a> ');
+			$overflowTab.prepend('<a href="#" onclick="$(\''+tabId+'\').zTabs(\'close\');return false;" class="closeTabButton">'+closebutton+'</a> ');
 		}
 		
 		if(!$(tabId).data('refreshable') && !($(tabId).data('closeable'))) {
@@ -1825,6 +1838,8 @@
 		if(typeof settings.initialized == 'function') {
 			settings.initialized();
 		}
+		// For the ready function
+		readyDfd.resolve();
 	}
 
 	// Send this the label of your tab and it will return an id for it.
