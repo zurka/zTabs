@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.30
+* Version 2.0.31
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -773,6 +773,12 @@
 	
 		// Add the settings here then override any with local content
 		$(obj).children('li:not(.zIgnore)').each(function() {
+			
+			// Carl doesn't like to put in anchor tags when he's using data-label and data-contenturl
+			if($(this).find('a').length == 0) {
+				$(this).append('<a></a>');
+			}
+			
 			// suck up any info we need for this li
 			if(typeof $(this).data('contenturl') == 'undefined') {
 				$(this).data('contenturl', $(this).find('a').attr('href'));
