@@ -1,0 +1,46 @@
+{
+	"name": "zTabs",
+	"version": "2.0.30",
+	"title": "jQuery.zTabs()",
+	"author": {
+		"name": "Steve Roberson",
+		"email": "steve@zurka.com",
+		"url": "https://github.com/zurka"
+	},
+	"licenses": [
+	{
+		"type": "MIT",
+		"url": "MIT-LICENSE.txt"
+	},
+	{
+		"type": "GPLv2",
+		"url": "GPL-LICENSE.txt"
+	}
+	],
+	"dependencies": {
+		"jquery": ">=1.5"
+	},
+	"description": "This plugin creates tabs that support nested sub-tabs. The content of the tabs is typically loaded only when needed, AKA lavy-loading. zTabs works great for a tabbed interface of a web app.  The back, forward and refresh buttons of the browser are handled; tabs can be created and destoryed dynamically; tab content can be loaded from multiple sites via JSONP; many methods return deffered objects; and more.",
+	"keywords": [
+	"tabs",
+	"nested",
+	"heirarchical",
+	"ajax",
+	"ui",
+	"interface",
+	"theme"
+	],
+	"homepage": "http://www.zurka.com/zTabs/",
+	"docs": "http://www.zurka.com/zTabs/#/docs/",
+	"demos": "http://www.zurka.com/zTabs/#/demos/"
+	"maintainers": [
+	{
+		"name": "Steve Roberson",
+		"email": "steve@zurka.com",
+		"url": "https://github.com/zurka"
+	}
+	],
+	"files": [
+	"jquery.color.js"
+	]
+}
