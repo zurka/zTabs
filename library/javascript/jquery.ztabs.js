@@ -88,8 +88,8 @@
 					}
 				}
 	
-				closebutton = '<img src="'+settings.imagebaseurl+settings.closebuttonfile+'">';
-				refreshbutton = '<img src="'+settings.imagebaseurl+settings.refreshbuttonfile+'">';
+				closebutton = '<img src="'+settings.imagebaseurl+settings.closebuttonfile+'" border="0">';
+				refreshbutton = '<img src="'+settings.imagebaseurl+settings.refreshbuttonfile+'" border="0">';
 
 				// set up anchor tabs with class zTab to be a tab
 				$(settings.fromanchor).live('click', function(event) {
