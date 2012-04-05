@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.31
+* Version 2.0.33
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -56,6 +56,9 @@
 	var clickLock = false;
 	var iFrameLock = false;  // IE iFrame based history
 	var closebutton, refreshbutton;
+
+	//we need to store where the top of our tabs are so we can go back there when we open a new tab
+	var tabTop=0;
 
 	// Browsers shouldn't do the caching for us
 	$.ajaxSetup({
@@ -121,6 +124,8 @@
 					tabOverflowAll();
 				});
 				
+				//store the location of the top of our tab set
+				tabTop=$(this).parent().offset().top;
 				
 				// the UL is storage for the tabSet wide information
 				$(this).addClass('zTabs').attr('data-ztabsset', zTabsSet).attr('data-ztabsid', zTabsId);
@@ -1184,10 +1189,15 @@
 						onWake(nextTabId);
 						dfd.resolve();
 					}
-				} 
-				else {
+				} else {
 					// Go get that remote data
 					loadingTab(nextTabId);
+					
+					//we're opening a new tab, so we want to scroll to the top of the page for to be seeing our new content
+					if ($nextTabId.data('cache')) {
+						$(window).scrollTop(tabTop);
+					}
+					
 					$.when(fetchData(contenturl)).then(function(data) {						
 						var regEx = /^\s*(<ul[\s\S]*?<\/ul>)([\s\S]*)/;  // look for this pattern: <optional white-space> <ul> <content>
 						var matchArray = data.match(regEx);
