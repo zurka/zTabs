@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.33
+* Version 2.0.4
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -29,6 +29,7 @@
 		initialized: false,
 		taboverflow: true,
 		
+		available: true,
 		cache: true,
 		closeable: false,
 		contenturl: false,
@@ -43,8 +44,8 @@
 		singleton: false
 	};
 	
-	// This array helps performance of parse the list by focusing on the settings the tabs care about and excluding things like subrowsdivid
-	var tabSettings = ['cache', 'closeable', 'contenturl', 'label', 'maxlabelsize', 'onclose', 'oncreate', 'onsleep', 'onwake', 'parentid', 'refreshable', 'singleton'];
+	// This array helps performance of parse-the-list by focusing on the settings the tabs care about and excluding things like subrowsdivid
+	var tabSettings = ['available', 'cache', 'closeable', 'contenturl', 'label', 'maxlabelsize', 'onclose', 'oncreate', 'onsleep', 'onwake', 'parentid', 'refreshable', 'singleton'];
 
 	// initial values
 	var zTabsSet = 0;
@@ -168,8 +169,8 @@
 						alert('Error: init 1');
 					});
 				} else {
-					if($(this).find('li.current, li.currentWithSecondRow').length == 1) {
-						$.when(showTab($(this).find('li.current, li.currentWithSecondRow').attr('id'))).then(function() {
+					if($(this).find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
+						$.when(showTab($(this).find('li.current, li.currentWithSecondRow, li.currentWithProgression').attr('id'))).then(function() {
 							var ul = $(that).zTabs('current').parent();
 							$.when(rebuildList(ul)).then(function() {
 								archiveList(ul);
@@ -400,9 +401,9 @@
 			// call some onclose bit that is allowed to cancel
 			if(checkOnCloses(that) || force) {
 				// is the tab we're closing currently selected
-				if($that.is('.current, .currentWithSecondRow')) {
+				if($that.is('.current, .currentWithSecondRow, .currentWithProgression')) {
 					// if it has a child row, run the rowchange callback when this is all done
-					if($that.is('.currentWithSecondRow')) {
+					if($that.is('.currentWithSecondRow, .currentWithProgression')) {
 						dfd.then(function() {
 							rowChange();
 						});
@@ -471,7 +472,7 @@
 							// Only archive here because closing a current tab initiates a show event
 							archiveList(ul);
 							tabOverflow($(ul).attr('id'));
-							dfd.resolve();
+							dfd.resolve();							
 						});
 					}
 				}
@@ -485,6 +486,7 @@
 			// Find the content associated with the li or ul
 			var contentArray = [];
 			if(this.is('ul')) {
+				
 				$.each(this.find('li'), function(index, value) {
 					if($("div[data-ztabid="+$(value).data('ztabid')+"_content], ul[data-ztabid="+$(value).data('ztabid')+"_content]").length > 0) {
 						if(typeof filter == 'undefined' || filter == '') {
@@ -588,7 +590,7 @@
 					var $ul = $(this).zTabs('parentTab').parent();
 				}
 				
-				$(this).click(function() {					
+				$(this).click(function() {
 					$ul.zTabs('add', tabOptions);
 					return false;
 				});
@@ -861,6 +863,10 @@
 				return false;
 			}
 			
+			if($(li).data('available') == false) {
+				return false;
+			}
+			
 			if(checkOnSleeps(li)) {
 				$(li).zTabs('show');
 			}			
@@ -911,13 +917,24 @@
 		if(key=='closeable') {
 			addCloseButton(li);
 		}
+		if(key=='available') {
+			if(value === true || value == 'true') {
+				$(li).removeClass('unavailable');
+				$(li).addClass('available');
+				$(li).data('available',true);
+			} else {
+				$(li).removeClass('available');
+				$(li).addClass('unavailable');
+				$(li).data('available',false);
+			}
+		}
 	}
 	
 	// 
 	// This is where the work gets done to show a tab and any subtabs below it.
 	// The recursion and all the branching can make it intimidating, but don't be discouraged.
 	//
-	function showTab(tabArray) {		
+	function showTab(tabArray) {
 		// Accepts a single id or an array of them.  It returns a promise.
 		if(typeof tabArray == 'undefined') {
 			return;
@@ -955,6 +972,7 @@
 		var dfd = $.Deferred();
 		// when this is all done, run the rowchange callback
 		dfd.then(function() {
+			tabOverflowAll();  // this is not very effeceint but it kills a bug
 			rowChange();
 		});
 	
@@ -969,7 +987,7 @@
 				var ul = $('.currentSubTabs:last').get(0);  // $('[data-ztabid='+ulId+'_content]').get(0);
 			}
 			$.when(rebuildList(ul)).then(function() {
-				if($(ul).find('li.current, li.currentWithSecondRow').length != 1) {
+				if($(ul).find('li.current, li.currentWithSecondRow, li.currentWithProgression').length != 1) {
 					// give up.  show the first tab
 					var thisId = $(ul).find('li:first').attr('id');
 					$.when($(ul).find('li:first').zTabs('show')).then(function() {
@@ -983,8 +1001,8 @@
 			});
 			return dfd.promise();
 		}	
-		// if already has the content and it's already being show update the classes.  Otherwise, there's a bunch of work to do
-		if ($('[data-ztabid='+$nextTabId.data('ztabid')+'_content]').length == 1 && ($nextTabId.hasClass('current') || $nextTabId.hasClass('currentWithSecondRow')) ) {
+		// if already has the content and it's already being shown, update the classes.  Otherwise, there's a bunch of work to do
+		if ($('[data-ztabid='+$nextTabId.data('ztabid')+'_content]').length == 1 && ($nextTabId.hasClass('current') || $nextTabId.hasClass('currentWithSecondRow') || $nextTabId.hasClass('currentWithProgression')) ) {
 			// the tab was already set, make sure it's content is showing
 			$(getTabSet(nextTabId)).data('currentTab', $nextTabId.get(0));
 			if($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").is('ul')) {
@@ -1001,14 +1019,14 @@
 				}).fail(function() {
 					dfd.reject();
 				});
-			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {
+			} else if (($nextTabId.hasClass('currentWithSecondRow') || $nextTabId.hasClass('currentWithProgression')) && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length < 1) {
 				// The current tab has child tabs but none of them are current.  This is probably because the current one was just closed
 				$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li:first').attr('id'))).then(function() {
 					dfd.resolve();
 				}).fail(function() {
 					dfd.reject();
 				});
-			} else if ($nextTabId.hasClass('currentWithSecondRow') && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length == 1) {
+			} else if (($nextTabId.hasClass('currentWithSecondRow') || $nextTabId.hasClass('currentWithProgression')) && $("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').length == 1) {
 					$.when(showTab($("[data-ztabid="+$nextTabId.data('ztabid')+"_content]").find('li.current').attr('id'))).then(function() {
 						dfd.resolve();
 					}).fail(function() {
@@ -1024,7 +1042,7 @@
 			}
 		} else {
 			// hide current tab's, sub tabs
-			$nextTabId.parent().find('.currentWithSecondRow').each(function () {
+			$nextTabId.parent().find('.currentWithSecondRow, .currentWithProgression').each(function () {
 				hideSubTabs(this);
 			});
 
@@ -1032,8 +1050,16 @@
 			$('.currentTabContent[data-ztabid^="'+tabSetNumber+'"]').removeClass('currentTabContent').addClass('hiddenTabContent');
 
 			// change previous tab, that's a sibling, remove the closebutton if it has one
-			$nextTabId.parent().find('.current').removeClass('current');
+			
+			if($nextTabId.parent().hasClass('currentWithProgression')) {
+				$nextTabId.parent().find('.current').addClass('available');
+				$nextTabId.parent().find('.current').removeClass('current');
+			} else {
+				$nextTabId.parent().find('.current').removeClass('current');
+			}
+			
 			$nextTabId.parent().find('.currentWithSecondRow').removeClass('currentWithSecondRow');
+			$nextTabId.parent().find('.currentWithProgression').removeClass('currentWithProgression');
 
 			// show current tab, sub tabs and current content
 			// Add some clarity to the code by setting up this variable
@@ -1045,7 +1071,15 @@
 					// set class for ul
 					$(contenturl).removeClass('hiddenTabContent').addClass('currentSubTabs');
 					$(contenturl).addClass('zTabs');
-					$nextTabId.addClass('currentWithSecondRow');
+					
+					if($(contenturl).hasClass('zTabsProgression')) {
+						// There's a progression as subtabs
+						$nextTabId.addClass('currentWithProgression');
+					} else {
+						// regular old subtabs
+						$nextTabId.addClass('currentWithSecondRow');
+					}
+					
 					syncOverflow($nextTabId.parent().find('.overflowTab'));
 
 					$(getTabSet(nextTabId)).data('currentTab', $nextTabId.get(0));
@@ -1070,15 +1104,15 @@
 						}).fail(function() {
 							dfd.reject();
 						});
-					} else if($newUL.find('li.current, li.currentWithSecondRow').length == 1) {
-						$.when(showTab($newUL.find('li.current, li.currentWithSecondRow').attr('id'))).then(function() {
+					} else if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
+						$.when(showTab($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').attr('id'))).then(function() {
 							dfd.resolve();
 						}).fail(function() {
 							dfd.reject();
 						});
 					} else {
 						$.when(rebuildList($newUL.get(0))).then(function() {
-							if($newUL.find('li.current, li.currentWithSecondRow').length >= 1) {
+							if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length >= 1) {
 								dfd.resolve();
 							} else {
 								// give up.  show the first tab
@@ -1124,8 +1158,16 @@
 					clickLock = false;
 
 					if($("ul[data-ztabid="+$nextTabId.data('ztabid')+"_content]").length > 0) {
-						// It's a list										
-						$nextTabId.addClass('currentWithSecondRow');
+						// It's a list
+						
+						if($("ul[data-ztabid="+$nextTabId.data('ztabid')+"_content]").hasClass('zTabsProgression')) {
+							// There's a progression as subtabs
+							$nextTabId.addClass('currentWithProgression');
+						} else {
+							// regular old subtabs
+							$nextTabId.addClass('currentWithSecondRow');
+						}
+															
 						syncOverflow($nextTabId.parent().find('.overflowTab'));
 						if($.browser.msie && $.browser.version.substr(0,1) < 8) {
 							// IE 6/7 can't handle this well
@@ -1144,6 +1186,7 @@
 							} else {
 								$newUL.slideDown('fast', function() {
 									$(this).css('display', '');
+									tabOverflow($(this).attr('id'));
 								});
 							}
 						});
@@ -1154,8 +1197,8 @@
 							}).fail(function() {
 									dfd.reject();
 							});
-						} else if($newUL.find('li.current, li.currentWithSecondRow').length == 1) {
-							$.when(showTab($newUL.find('li.current, li.currentWithSecondRow').attr('id'))).then(function() {
+						} else if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
+							$.when(showTab($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').attr('id'))).then(function() {
 								dfd.resolve();
 							}).fail(function() {
 								dfd.reject();
@@ -1163,7 +1206,7 @@
 						} else {
 							// rebuild and try again
 							$.when(rebuildList($newUL.get(0))).then(function() {
-								if($newUL.find('li.current, li.currentWithSecondRow').length == 1) {
+								if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
 									dfd.resolve();
 								} else {
 									// give up.  show the first tab
@@ -1178,7 +1221,7 @@
 							});
 						}
 					} else {
-						// just content				
+						// just content
 						$nextTabId.addClass('current');
 						syncOverflow($nextTabId.parent().find('.overflowTab'));
 						
@@ -1195,7 +1238,9 @@
 					
 					//we're opening a new tab, so we want to scroll to the top of the page for to be seeing our new content
 					if ($nextTabId.data('cache')) {
-						$(window).scrollTop(tabTop);
+						if ($(window).scrollTop() > tabTop){
+							$(window).scrollTop(tabTop);
+						}
 					}
 					
 					$.when(fetchData(contenturl)).then(function(data) {						
@@ -1219,7 +1264,14 @@
 							var contentdivid = $(getTabSet(nextTabId)).data('contentdivid');
 							var subrowsdivid = $(getTabSet(nextTabId)).data('subrowsdivid');
 
-							$nextTabId.addClass('currentWithSecondRow');
+							if($(dataUl).hasClass('zTabsProgression')) {
+								// There's a progression as subtabs
+								$nextTabId.addClass('currentWithProgression');
+							} else {
+								// regular old subtabs
+								$nextTabId.addClass('currentWithSecondRow');
+							}
+							
 							syncOverflow($nextTabId.parent().find('.overflowTab'));
 							
 							// STEVE, you were playing with sliding down here
@@ -1294,6 +1346,7 @@
 										// 	$nextTabId.parent().after(dataContent);
 										// }
 										$(this).css('display', '');
+										tabOverflow($(this).attr('id'));
 									});
 								}
 							});
@@ -1312,8 +1365,8 @@
 								}).fail(function() {
 									dfd.reject();
 								});
-							} else if($newUL.find('li.current, li.currentWithSecondRow').length == 1) {
-								$.when(showTab($newUL.find('li.current, li.currentWithSecondRow').attr('id'))).then(function() {
+							} else if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
+								$.when(showTab($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').attr('id'))).then(function() {
 									dfd.resolve();
 								}).fail(function() {
 									dfd.reject();
@@ -1322,7 +1375,7 @@
 
 								// rebuild and try again
 								$.when(rebuildList($newUL.get(0))).then(function() {
-									if($newUL.find('li.current, li.currentWithSecondRow').length == 1) {
+									if($newUL.find('li.current, li.currentWithSecondRow, li.currentWithProgression').length == 1) {
 										dfd.resolve();
 									} else {
 										// give up.  show the first tab
@@ -1434,7 +1487,7 @@
 		// builds array from current level to the lowest level
 		var zIdArray = zIdArray || new Array();
 		zIdArray.push($(li).data('ztabid'));
-		$("ul[data-ztabid="+$(li).data('ztabid')+"_content]").find('.current, .currentWithSecondRow').each(function() {
+		$("ul[data-ztabid="+$(li).data('ztabid')+"_content]").find('.current, .currentWithSecondRow, .currentWithProgression').each(function() {
 			return tabDecendants(this, zIdArray);
 		});
 		return zIdArray;
@@ -1478,7 +1531,7 @@
 	}
 	
 	function hideSubTabs(li) {
-		$("ul[data-ztabid="+$(li).data('ztabid')+"_content]").find('.currentWithSecondRow').each(function () {
+		$("ul[data-ztabid="+$(li).data('ztabid')+"_content]").find('.currentWithSecondRow, .currentWithProgression').each(function () {
 			hideSubTabs(this);
 		});
 		$("ul[data-ztabid="+$(li).data('ztabid')+"_content]").removeClass('currentSubTabs').addClass('hiddenTabContent');
@@ -1629,7 +1682,7 @@
 				if(tabIds.hasOwnProperty(i)) {
 					if(!$(cleanId(tabIds[i].id)).is('li')) {
 						// the tab doesn't exist.  It should be added back in
-						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'currentWithProgression' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab currentWithProgression') {
 							tabIds[i].data.show = true;
 						} else {
 							tabIds[i].data.show = false;
@@ -1640,7 +1693,7 @@
 					} else {
 						// the tab does exist, should it be current?
 					
-						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow') {
+						if(tabIds[i].theclass == 'current' || tabIds[i].theclass == 'currentWithSecondRow'  || tabIds[i].theclass == 'currentWithProgression' || tabIds[i].theclass == 'hiddenTab current' || tabIds[i].theclass == 'hiddenTab currentWithSecondRow' || tabIds[i].theclass == 'hiddenTab currentWithProgression') {
 							var showLater = cleanId(tabIds[i].id);
 						}
 					}
@@ -1700,6 +1753,7 @@
 
 	// Check to see if the tabs in a given ul are overflowing
 	function tabOverflow(ulId) {
+		
 		if(settings.taboverflow == false) {
 			return;
 		}
@@ -1711,6 +1765,7 @@
 		var currTab = '';		
 		
 		var ulWidth = $('#'+ulId).width();
+		
 		var liWidth = 0;
 		var heights = [];  // IE7 will expand the height to avoid an overflow
 		$('#'+ulId).find('li:not(.overflowTab)').each(function() {
@@ -1748,7 +1803,7 @@
 				} else {
 					$(this).removeClass('hiddenTab');
 				}
-				if($(this).hasClass('current') || $(this).hasClass('currenWithSecondRow') || $(this).hasClass('hiddenTab currentWithSecondRow') || $(this).hasClass('hiddenTab current')) {
+				if($(this).hasClass('current') || $(this).hasClass('currentWithSecondRow') || $(this).hasClass('currentWithProgression') || $(this).hasClass('hiddenTab currentWithSecondRow')  || $(this).hasClass('hiddenTab currentWithProgression') || $(this).hasClass('hiddenTab current')) {
 					// there should always be a current one, right?
 					currTab = $(this).attr('id');
 				}
