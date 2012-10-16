@@ -1,6 +1,6 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.4
+* Version 2.0.44
 * @requires jQuery v1.5 or later
 *
 * Copyright 2011, Steve Roberson
@@ -45,7 +45,7 @@
 	};
 	
 	// This array helps performance of parse-the-list by focusing on the settings the tabs care about and excluding things like subrowsdivid
-	var tabSettings = ['available', 'cache', 'closeable', 'contenturl', 'label', 'maxlabelsize', 'onclose', 'oncreate', 'onsleep', 'onwake', 'parentid', 'refreshable', 'singleton'];
+	var tabSettings = ['available', 'cache', 'closeable', 'contenturl', 'label', 'localstorage', 'maxlabelsize', 'onclose', 'oncreate', 'onsleep', 'onwake', 'parentid', 'refreshable', 'singleton'];
 
 	// initial values
 	var zTabsSet = 0;
@@ -658,32 +658,61 @@
 		refresh: function() {
 			// returns a deffered object
 			var dfd = $.Deferred();
+			var limit = this.length;
+			var count = 0;
+			// Only resolve after each item in the array has been processed
+			var progress = function() {
+				count++;
+				if(count >= this.length) {
+					dfd.resolve();
+				}
+			};
+
 			// at the moment this only supports content, not subtabs		
 			this.each(function() {
 				var li = this; // for use inside the get
-				// if contenturl doesn't start with #, ajax for the content
-				if($(this).data('contenturl').substr(0,1) != '#') {
-					// check to see that content exists.  if not, don't refresh something that's never been loaded
-					if($("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").length > 0) {
-						$.get($(this).data('contenturl')).success(function(data) {
-							$("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").html(data);
-							dfd.resolve();
-						}).fail(function() {
-							dfd.reject();
-						});
+			
+				// Are we trying to refresh a tab that has subtabs?
+				if($("ul[data-ztabid="+$(li).data('ztabid')+"_content]").length) {
+					// blow it away and show this tab
+					removeContentForTab(li);
+					if(jQuery.inArray($(li).attr('id'), tabAncestors($(li).zTabs('current'))) != -1) {
+						$.when($(li).zTabs('show',true)).then(progress);
 					} else {
-						dfd.reject();
+						progress();
+					}
+				} else {
+					// if contenturl doesn't start with #, ajax for the content
+					if($(this).data('contenturl').substr(0,1) != '#') {
+						// check to see that content exists.  if not, don't refresh something that's never been loaded
+						if($("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").length > 0) {
+							$.get($(this).data('contenturl')).success(function(data) {
+								$("div[data-ztabid="+$(li).data('ztabid')+"_content], ul[data-ztabid="+$(li).data('ztabid')+"_content]").html(data);
+								progress();
+							}).fail(function() {
+								dfd.reject();
+							});
+						} else {
+							dfd.reject();
+						}
 					}
 				}
 			});
 			return dfd.promise();
 		},
 		show: function() {
+			var refresh = refresh || false;
 			var dfd = $.Deferred();
 
 			if(checkOnSleeps(this)) {
 				// only open the tabs that aren't already open (hence the subtraction)
 				var diff = arraySubtraction(tabAncestors(this), tabAncestors($(getTabSet(this)).data('currentTab')));
+				
+				
+				if(diff.length == 0) {
+					diff.push($(this).attr('id'));
+				}
+				
 				if(diff.length == 0) {
 					// the tab must already be current
 					dfd.resolve();			
@@ -909,6 +938,9 @@
 		// some changes will require a rewritten tab
 		if(key=='contenturl') {
 			$(li).find('a').attr('href', value);
+		}
+		if(key=='tabid') {
+			$(li).attr('id', value);
 		}
 		if(key=='label') {
 			$(li).find('a[class!="closeTabButton"]').html(value);
@@ -1232,7 +1264,8 @@
 						onWake(nextTabId);
 						dfd.resolve();
 					}
-				} else {
+				}
+				else {
 					// Go get that remote data
 					loadingTab(nextTabId);
 					
@@ -1652,6 +1685,14 @@
 			ul = $('#'+ul).get(0);
 		}
 		
+		// Check to see if the tab has localstorage turned off locally (at the tab level)
+		if($(ul).data('ztabid')) {
+			var tabId = $(ul).data('ztabid').split('_content')[0];
+			if ($('[data-ztabid='+tabId+']').data('localstorage') == false) {
+				return;
+			}
+		}
+		
 		// build an array of items/tabs in this list
 		listItems = [];
 		$(ul).find('li:not(.overflowTab)').each(function() {			
@@ -1947,5 +1988,4 @@
 			}
 		}
 	}
-
 })( jQuery );

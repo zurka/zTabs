@@ -1,0 +1,37 @@
+{
+    "name": "zTabs",
+    "version": "2.0.44",
+    "title": "jQuery.zTabs()",
+    "author": {
+        "name": "Steve Roberson",
+        "url": "https://github.com/steveroberson"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/jquery/jquery-color/raw/2.0.0-beta.1/MIT-LICENSE.txt"
+        },
+        {
+            "type": "GPLv2",
+            "url": "https://github.com/jquery/jquery-color/raw/2.0.0-beta.1/GPL-LICENSE.txt"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.5"
+    },
+    "description": "zTabs helps you create an interface of nested tabs.  The tabs can get their content from the DOM or via AJAX.  zTabs even supports getting content from other domains via JSONP.  It does more than simply put one set of tabs inside another.  Tabs can be added or removed dynamically via javascript or by adding the class "zTab" to an anchor.  The whole tab set is cohesive so the current tab can cancel the loading of a new tab.  "
+    "keywords": [
+        "tabs",
+        "ajax",
+        "nested"
+    ],
+    "homepage": "https://github.com/zurka/ztabs",
+	"docs": "http://www.zurka.com/zTabs/#/docs/",
+	"demo": "http://www.zurka.com/zTabs/#/demos/",
+    "maintainers": [
+        {
+            "name": "Steve Roberson",
+            "url": "https://github.com/steveroberson"
+        }
+    ]
+}
