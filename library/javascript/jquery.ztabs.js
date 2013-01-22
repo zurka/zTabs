@@ -1,7 +1,7 @@
 /*
 * jQuery zTabs plugin
-* Version 2.0.44
-* @requires jQuery v1.5 or later
+* Version 2.0.45
+* @requires jQuery v1.5 - v1.9.0
 *
 * Copyright 2011, Steve Roberson
 * roberson@zurka.com
@@ -70,7 +70,7 @@
 
 	var methods = {
 		init: function(options) {			
-			// for IE history, add a hidden div to the top of the page
+			// for IE history, add a hidden iframe to the top of the page
 			if($.browser.msie) {
 				$('body').prepend('<iframe id="zTabHistory" src="blank.html" style="display:none"></iframe>');
 				$('#zTabHistory').load(function() {
@@ -1506,7 +1506,8 @@
 		var zIdArray = zIdArray || new Array();
 		zIdArray.unshift($(li).attr('id'));
 		
-		if(typeof $(li).parent().data('ztabid') !== 'undefined') {
+		// jQuery 1.9 returns object instead of undefined so a second check is added for null data
+		if(typeof $(li).parent().data('ztabid') !== 'undefined' && $(li).parent().data('ztabid') != null) {
 			var liId = $(li).parent().data('ztabid').split("_");
 			$("li[data-ztabid="+liId[0]+"_"+liId[1]+"]").each(function () {
 				return tabAncestors(this, zIdArray);
